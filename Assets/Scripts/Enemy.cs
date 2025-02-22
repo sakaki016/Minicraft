@@ -1,9 +1,9 @@
-
 using UnityEngine;
 
-public class Block : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField] int hp;
+
     private void Update()
     {
         if (0 >= hp)
