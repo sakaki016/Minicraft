@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        //Player‚ÌˆÚ“®
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
@@ -30,5 +31,6 @@ public class PlayerMovement : MonoBehaviour
         }
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
+
     }
 }
