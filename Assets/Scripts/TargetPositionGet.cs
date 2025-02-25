@@ -4,24 +4,37 @@ using UnityEngine;
 
 public class TargetPositionGet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    const int HP = 500;
+    int hp = HP;
 
-    // Update is called once per frame
     void Update()
     {
         //ターゲットの座標を取得
-        if (Input.GetMouseButtonDown(0))
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Input.GetMouseButton(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 10.0f))
+            //距離が5以内のオブジェクトが対象
+            if (Physics.Raycast(ray, out hit, 5.0f))
             {
-                Debug.Log(hit.collider.gameObject.transform.position);
+                //if (hit.collider.gameObject.tag == "Enemy")
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    hp = 900000;
+                }
+                hp--;
+                Debug.Log(hp);
+            }
+            else if (Physics.Raycast(ray, out hit, 5.1f))
+            {
+                hp = HP;
             }
         }
+        else
+        {
+            hp = HP;
+        }
+
     }
 }
