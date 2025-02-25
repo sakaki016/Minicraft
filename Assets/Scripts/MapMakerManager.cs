@@ -36,6 +36,11 @@ public class MapMakerManager : MonoBehaviour
     [SerializeField]
     private float _mapSize = 1f; // マップのスケール
 
+    // 新たにPrefabを参照するための変数
+    [SerializeField] private GameObject dirtPrefab; // 土のPrefab
+    [SerializeField] private GameObject rockPrefab; // 石のPrefab
+    [SerializeField] private GameObject brickPrefab; // 岩盤のPrefab
+
     private void Awake()
     {
         // マップのスケール設定
@@ -50,50 +55,9 @@ public class MapMakerManager : MonoBehaviour
         {
             for (int z = 0; z < _depth; z++)
             {
-                // キューブを生成
-                GameObject topCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                topCube.transform.localPosition = new Vector3(x, 0, z);
-                topCube.transform.SetParent(transform);
-
-                // コライダーが不要なら削除
-                if (!_needToCollider)
-                {
-                    Destroy(topCube.GetComponent<BoxCollider>());
-                }
-
-                // 高さを設定
-                float topY = SetY(topCube);
-
-                for (float y = topY - 1; y >= _minHeight; y--)
-                {
-                    GameObject underCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    underCube.transform.localPosition = new Vector3(x, y, z);
-                    underCube.transform.SetParent(transform);
-
-                    // コライダーが不要なら削除
-                    if (!_needToCollider)
-                    {
-                        Destroy(underCube.GetComponent<BoxCollider>());
-                    }
-
-                    // 高さに応じた色を設定
-                    Color color = Color.black;
-                    if (y > _maxHeight-8)
-                    {
-                        ColorUtility.TryParseHtmlString("#FF0000", out color); // 赤
-                    }
-                    else if (y == _minHeight)
-                    {
-                        ColorUtility.TryParseHtmlString("#00FF00", out color); // 緑
-                    }
-                    else
-                    {
-                        ColorUtility.TryParseHtmlString("#0000FF", out color); // 青
-                    }
-
-                    // キューブに色を適用
-                    underCube.GetComponent<MeshRenderer>().material.color = color;
-                }
+                // 高さを設定してPrefabを選ぶ
+                GameObject tile = CreateTile(x, 0, z);
+                tile.transform.SetParent(transform);
             }
         }
     }
@@ -109,26 +73,54 @@ public class MapMakerManager : MonoBehaviour
         // マップのスケールを更新
         transform.localScale = new Vector3(_mapSize, _mapSize, _mapSize);
 
-        // すべての子オブジェクト（キューブ）のY座標を更新
+        // すべての子オブジェクト（Prefab）のY座標を更新
         foreach (Transform child in transform)
         {
             SetY(child.gameObject);
         }
     }
 
-    /// <summary>
-    /// キューブのY座標を設定する
-    /// </summary>
-    /// <param name="cube">対象のキューブ</param>
-    /// <returns>設定されたY座標</returns>
-    private float SetY(GameObject cube)
+    private GameObject CreateTile(int x, int y, int z)
+    {
+        // 初期Prefabを決定
+        GameObject prefab = GetPrefabByHeight(y);  // 初期のy座標を基にPrefabを決定
+        GameObject tile = Instantiate(prefab, new Vector3(x, y, z), Quaternion.identity);
+
+        // コライダーが不要なら削除
+        if (!_needToCollider)
+        {
+            Destroy(tile.GetComponent<Collider>());
+        }
+
+        // 高さを設定してPrefabを変更
+        float topY = SetY(tile);  // SetYで高さを設定
+        tile.transform.localPosition = new Vector3(x, topY, z);  // Y座標を更新
+
+        // 各タイルの高さに応じてPrefabを変更
+        for (float height = topY - 1; height >= _minHeight; height--)
+        {
+            prefab = GetPrefabByHeight(height); // 高さに応じてPrefabを更新
+            GameObject underTile = Instantiate(prefab, new Vector3(x, height, z), Quaternion.identity);
+            underTile.transform.SetParent(transform);
+
+            // コライダーが不要なら削除
+            if (!_needToCollider)
+            {
+                Destroy(underTile.GetComponent<Collider>());
+            }
+        }
+
+        return tile;
+    }
+
+    private float SetY(GameObject tile)
     {
         float y = 0;
 
         if (_isPerlinNoiseMap)
         {
-            float xSample = (cube.transform.localPosition.x + _seedX) / _relief;
-            float zSample = (cube.transform.localPosition.z + _seedZ) / _relief;
+            float xSample = (tile.transform.localPosition.x + _seedX) / _relief;
+            float zSample = (tile.transform.localPosition.z + _seedZ) / _relief;
             float noise = Mathf.PerlinNoise(xSample, zSample);
             y = _maxHeight * noise;
         }
@@ -142,32 +134,25 @@ public class MapMakerManager : MonoBehaviour
             y = Mathf.Round(y);
         }
 
-        cube.transform.localPosition = new Vector3(cube.transform.localPosition.x, y, cube.transform.localPosition.z);
-
-        // 高さに応じた色を適用
-        SetCubeColor(cube, y);
+        tile.transform.localPosition = new Vector3(tile.transform.localPosition.x, y, tile.transform.localPosition.z);
 
         return y;
     }
 
-    private void SetCubeColor(GameObject cube, float y)
+    private GameObject GetPrefabByHeight(float height)
     {
-        MeshRenderer renderer = cube.GetComponent<MeshRenderer>();
-        if (renderer == null) return;
-
-        Material mat = new Material(Shader.Find("Standard"));
-        mat.SetFloat("_Mode", 0); // Opaque にする
-        mat.renderQueue = 2000;
-        mat.color = GetColorByHeight(y);
-
-        renderer.material = mat;
-    }
-
-    private Color GetColorByHeight(float y)
-    {
-        //if (y > _maxHeight -8) return Color.red;
-        //if (y ==_minHeight) return Color.green;
-        //return Color.blue;
-        return Color.black;
+        // 高さに応じて異なるPrefabを返す
+        if (height > _maxHeight - 10) // 土
+        {
+            return dirtPrefab;
+        }
+        else if (height == _minHeight) // 岩盤
+        {
+            return brickPrefab;
+        }
+        else // 石
+        {
+            return rockPrefab;
+        }
     }
 }
