@@ -9,6 +9,7 @@ public class MapMakerManager : MonoBehaviour
 {
     // シード値（ノイズ用）
     private float _seedX, _seedZ;
+    private float _minHeight = -5; // 底（岩盤）
 
     [SerializeField]
     [Header("------実行中に変えれない------")]
@@ -63,7 +64,7 @@ public class MapMakerManager : MonoBehaviour
                 // 高さを設定
                 float topY = SetY(topCube);
 
-                for (float y = topY - 1; y >= -5; y--)
+                for (float y = topY - 1; y >= _minHeight; y--)
                 {
                     GameObject underCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     underCube.transform.localPosition = new Vector3(x, y, z);
@@ -77,17 +78,17 @@ public class MapMakerManager : MonoBehaviour
 
                     // 高さに応じた色を設定
                     Color color = Color.black;
-                    if (y > _maxHeight * 0.6f)
+                    if (y > _maxHeight-8)
                     {
-                        ColorUtility.TryParseHtmlString("#FF0000", out color); // 土っぽい色
+                        ColorUtility.TryParseHtmlString("#FF0000", out color); // 赤
                     }
-                    else if (y > _maxHeight * 0.3f)
+                    else if (y == _minHeight)
                     {
-                        ColorUtility.TryParseHtmlString("#00FF00", out color); // 水っぽい色
+                        ColorUtility.TryParseHtmlString("#00FF00", out color); // 緑
                     }
                     else
                     {
-                        ColorUtility.TryParseHtmlString("#0000FF", out color); // マグマっぽい色
+                        ColorUtility.TryParseHtmlString("#0000FF", out color); // 青
                     }
 
                     // キューブに色を適用
@@ -154,7 +155,9 @@ public class MapMakerManager : MonoBehaviour
         MeshRenderer renderer = cube.GetComponent<MeshRenderer>();
         if (renderer == null) return;
 
-        Material mat = new Material(Shader.Find("Standard")); // 新しいマテリアルを作成
+        Material mat = new Material(Shader.Find("Standard"));
+        mat.SetFloat("_Mode", 0); // Opaque にする
+        mat.renderQueue = 2000;
         mat.color = GetColorByHeight(y);
 
         renderer.material = mat;
@@ -162,8 +165,9 @@ public class MapMakerManager : MonoBehaviour
 
     private Color GetColorByHeight(float y)
     {
-        if (y > _maxHeight * 0.6f) return Color.red;
-        if (y > _maxHeight * 0.3f) return Color.green;
-        return Color.blue;
+        //if (y > _maxHeight -8) return Color.red;
+        //if (y ==_minHeight) return Color.green;
+        //return Color.blue;
+        return Color.black;
     }
 }
