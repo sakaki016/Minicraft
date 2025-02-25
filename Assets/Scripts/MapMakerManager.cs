@@ -63,7 +63,6 @@ public class MapMakerManager : MonoBehaviour
                 // 高さを設定
                 float topY = SetY(topCube);
 
-                // Y座標の頂点から y = -20 までキューブを積み上げる
                 for (float y = topY - 1; y >= -5; y--)
                 {
                     GameObject underCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -76,8 +75,23 @@ public class MapMakerManager : MonoBehaviour
                         Destroy(underCube.GetComponent<BoxCollider>());
                     }
 
-                    // 地面の色を設定
-                    underCube.GetComponent<MeshRenderer>().material.color = Color.gray;
+                    // 高さに応じた色を設定
+                    Color color = Color.black;
+                    if (y > _maxHeight * 0.6f)
+                    {
+                        ColorUtility.TryParseHtmlString("#FF0000", out color); // 土っぽい色
+                    }
+                    else if (y > _maxHeight * 0.3f)
+                    {
+                        ColorUtility.TryParseHtmlString("#00FF00", out color); // 水っぽい色
+                    }
+                    else
+                    {
+                        ColorUtility.TryParseHtmlString("#0000FF", out color); // マグマっぽい色
+                    }
+
+                    // キューブに色を適用
+                    underCube.GetComponent<MeshRenderer>().material.color = color;
                 }
             }
         }
@@ -110,7 +124,6 @@ public class MapMakerManager : MonoBehaviour
     {
         float y = 0;
 
-        // パーリンノイズを利用して高さを決定
         if (_isPerlinNoiseMap)
         {
             float xSample = (cube.transform.localPosition.x + _seedX) / _relief;
@@ -120,34 +133,37 @@ public class MapMakerManager : MonoBehaviour
         }
         else
         {
-            // 完全ランダムな高さ
             y = Random.Range(0, _maxHeight);
         }
 
-        // 高さを整数値に丸める（滑らかでない場合）
         if (!_isSmoothness)
         {
             y = Mathf.Round(y);
         }
 
-        // キューブの位置を設定
         cube.transform.localPosition = new Vector3(cube.transform.localPosition.x, y, cube.transform.localPosition.z);
 
-        // 高さに応じた色を設定
-        Color color = Color.black;
-        if (y > _maxHeight * 0.3f)
-        {
-            ColorUtility.TryParseHtmlString("#965042", out color); // 土っぽい色
-        }
-        else if (y > _maxHeight * 0.1f)
-        {
-            ColorUtility.TryParseHtmlString("#7d7d7d", out color); // 水っぽい色
-        }
-        //else if (y > _maxHeight * 0.1f)
-        //{
-        //    ColorUtility.TryParseHtmlString("#D4500EFF", out color); // マグマっぽい色
-        //}
-        cube.GetComponent<MeshRenderer>().material.color = color;
+        // 高さに応じた色を適用
+        SetCubeColor(cube, y);
+
         return y;
+    }
+
+    private void SetCubeColor(GameObject cube, float y)
+    {
+        MeshRenderer renderer = cube.GetComponent<MeshRenderer>();
+        if (renderer == null) return;
+
+        Material mat = new Material(Shader.Find("Standard")); // 新しいマテリアルを作成
+        mat.color = GetColorByHeight(y);
+
+        renderer.material = mat;
+    }
+
+    private Color GetColorByHeight(float y)
+    {
+        if (y > _maxHeight * 0.6f) return Color.red;
+        if (y > _maxHeight * 0.3f) return Color.green;
+        return Color.blue;
     }
 }
