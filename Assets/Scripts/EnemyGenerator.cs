@@ -9,6 +9,9 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField] float interval;
     //敵ポップMAX数
     [SerializeField] int maxPopNum;
+    //フィールドサイズ
+    [SerializeField] int fieldSizeX;
+    [SerializeField] int fieldSizeZ;
     //敵の格納場所
     [SerializeField] Transform enemyParentTransform;
     //経過時間
@@ -31,8 +34,10 @@ public class EnemyGenerator : MonoBehaviour
                 GameObject enemy = Instantiate(getRandomEnemy());
                 //enemyを指定した場所に格納
                 enemy.transform.parent = enemyParentTransform;
+
+
                 //生成した敵の座標を決定する
-                enemy.transform.position = new Vector3(Random.Range(-50, 50), 1f, Random.Range(-50, 50));
+                enemy.transform.position = new Vector3(Random.Range(0, fieldSizeX), 10f, Random.Range(0, fieldSizeZ));
                 //経過時間を初期化して再度時間計測を始める
                 time = 0f;
             }
