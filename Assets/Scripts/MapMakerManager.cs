@@ -41,7 +41,12 @@ public class MapMakerManager : MonoBehaviour
     [SerializeField] private GameObject dirtPrefab; // 土のPrefab
     [SerializeField] private GameObject rockPrefab; // 石のPrefab
     [SerializeField] private GameObject brickPrefab; // 岩盤のPrefab
+    [SerializeField] private GameObject treePrefab; // 木のPrefabを追加
 
+    [SerializeField] private float treeSpawnProbability = 0.05f; // 木が生える確率 x100倍
+    [SerializeField] private float treeMinDistance = 5f; // 木と木の最小距離
+
+    private List<Vector3> treePositions = new List<Vector3>(); // 生成された木の座標リスト
     private void Awake()
     {
         // マップのスケール設定
@@ -86,16 +91,19 @@ public class MapMakerManager : MonoBehaviour
         // 初期Prefabを決定
         GameObject prefab = grassPrefab;  // 初期のPrefabを草ブロックに設定
         GameObject tile = Instantiate(prefab, new Vector3(x, y, z), Quaternion.identity);
-
-        // コライダーが不要なら削除
-        if (!_needToCollider)
-        {
-            Destroy(tile.GetComponent<Collider>());
-        }
+        tile.transform.SetParent(transform);
 
         // 高さを設定してPrefabを変更
         float topY = SetY(tile);  // SetYで高さを設定
         tile.transform.localPosition = new Vector3(x, topY, z);  // Y座標を更新
+
+        // 木を生成できるかチェック
+        if (treePrefab != null && Random.value < treeSpawnProbability && CanPlaceTree(x, topY, z))
+        {
+            GameObject tree = Instantiate(treePrefab, new Vector3(x, topY + 1, z), Quaternion.identity);
+            tree.transform.SetParent(transform);
+            treePositions.Add(new Vector3(x, topY + 1, z)); // 生成された木の位置をリストに保存
+        }
 
         // 各タイルの高さに応じてPrefabを変更
         for (float height = topY - 1; height >= _minHeight; height--)
@@ -103,15 +111,20 @@ public class MapMakerManager : MonoBehaviour
             prefab = GetPrefabByHeight(height); // 高さに応じてPrefabを更新
             GameObject underTile = Instantiate(prefab, new Vector3(x, height, z), Quaternion.identity);
             underTile.transform.SetParent(transform);
-
-            // コライダーが不要なら削除
-            if (!_needToCollider)
-            {
-                Destroy(underTile.GetComponent<Collider>());
-            }
         }
 
         return tile;
+    }
+    private bool CanPlaceTree(float x, float y, float z)
+    {
+        foreach (Vector3 treePos in treePositions)
+        {
+            if (Vector3.Distance(treePos, new Vector3(x, y + 1, z)) < treeMinDistance)
+            {
+                return false; // 5ブロック以内に木があるため生成不可
+            }
+        }
+        return true; // 近くに木がないので生成可能
     }
 
     private float SetY(GameObject tile)
