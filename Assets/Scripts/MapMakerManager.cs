@@ -9,6 +9,7 @@ public class MapMakerManager : MonoBehaviour
 {
     // シード値（ノイズ用）
     private float _seedX, _seedZ;
+    private float _minHeight = -5; // 底（岩盤）
 
     [SerializeField]
     [Header("------実行中に変えれない------")]
@@ -35,6 +36,17 @@ public class MapMakerManager : MonoBehaviour
     [SerializeField]
     private float _mapSize = 1f; // マップのスケール
 
+    // 新たにPrefabを参照するための変数
+    [SerializeField] private GameObject grassPrefab; // 草のPrefab
+    [SerializeField] private GameObject dirtPrefab; // 土のPrefab
+    [SerializeField] private GameObject rockPrefab; // 石のPrefab
+    [SerializeField] private GameObject brickPrefab; // 岩盤のPrefab
+    [SerializeField] private GameObject treePrefab; // 木のPrefabを追加
+
+    [SerializeField] private float treeSpawnProbability = 0.05f; // 木が生える確率 x100倍
+    [SerializeField] private float treeMinDistance = 5f; // 木と木の最小距離
+
+    private List<Vector3> treePositions = new List<Vector3>(); // 生成された木の座標リスト
     private void Awake()
     {
         // マップのスケール設定
@@ -49,50 +61,9 @@ public class MapMakerManager : MonoBehaviour
         {
             for (int z = 0; z < _depth; z++)
             {
-                // キューブを生成
-                GameObject topCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                topCube.transform.localPosition = new Vector3(x, 0, z);
-                topCube.transform.SetParent(transform);
-
-                // コライダーが不要なら削除
-                if (!_needToCollider)
-                {
-                    Destroy(topCube.GetComponent<BoxCollider>());
-                }
-
-                // 高さを設定
-                float topY = SetY(topCube);
-
-                for (float y = topY - 1; y >= -5; y--)
-                {
-                    GameObject underCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    underCube.transform.localPosition = new Vector3(x, y, z);
-                    underCube.transform.SetParent(transform);
-
-                    // コライダーが不要なら削除
-                    if (!_needToCollider)
-                    {
-                        Destroy(underCube.GetComponent<BoxCollider>());
-                    }
-
-                    // 高さに応じた色を設定
-                    Color color = Color.black;
-                    if (y > _maxHeight * 0.6f)
-                    {
-                        ColorUtility.TryParseHtmlString("#FF0000", out color); // 土っぽい色
-                    }
-                    else if (y > _maxHeight * 0.3f)
-                    {
-                        ColorUtility.TryParseHtmlString("#00FF00", out color); // 水っぽい色
-                    }
-                    else
-                    {
-                        ColorUtility.TryParseHtmlString("#0000FF", out color); // マグマっぽい色
-                    }
-
-                    // キューブに色を適用
-                    underCube.GetComponent<MeshRenderer>().material.color = color;
-                }
+                // 高さを設定してPrefabを選ぶ
+                GameObject tile = CreateTile(x, 0, z);
+                tile.transform.SetParent(transform);
             }
         }
     }
@@ -108,26 +79,62 @@ public class MapMakerManager : MonoBehaviour
         // マップのスケールを更新
         transform.localScale = new Vector3(_mapSize, _mapSize, _mapSize);
 
-        // すべての子オブジェクト（キューブ）のY座標を更新
+        // すべての子オブジェクト（Prefab）のY座標を更新
         foreach (Transform child in transform)
         {
             SetY(child.gameObject);
         }
     }
 
-    /// <summary>
-    /// キューブのY座標を設定する
-    /// </summary>
-    /// <param name="cube">対象のキューブ</param>
-    /// <returns>設定されたY座標</returns>
-    private float SetY(GameObject cube)
+    private GameObject CreateTile(int x, int y, int z)
+    {
+        // 初期Prefabを決定
+        GameObject prefab = grassPrefab;  // 初期のPrefabを草ブロックに設定
+        GameObject tile = Instantiate(prefab, new Vector3(x, y, z), Quaternion.identity);
+        tile.transform.SetParent(transform);
+
+        // 高さを設定してPrefabを変更
+        float topY = SetY(tile);  // SetYで高さを設定
+        tile.transform.localPosition = new Vector3(x, topY, z);  // Y座標を更新
+
+        // 木を生成できるかチェック
+        if (treePrefab != null && Random.value < treeSpawnProbability && CanPlaceTree(x, topY, z))
+        {
+            GameObject tree = Instantiate(treePrefab, new Vector3(x, topY + 1, z), Quaternion.identity);
+            tree.transform.SetParent(transform);
+            treePositions.Add(new Vector3(x, topY + 1, z)); // 生成された木の位置をリストに保存
+        }
+
+        // 各タイルの高さに応じてPrefabを変更
+        for (float height = topY - 1; height >= _minHeight; height--)
+        {
+            prefab = GetPrefabByHeight(height); // 高さに応じてPrefabを更新
+            GameObject underTile = Instantiate(prefab, new Vector3(x, height, z), Quaternion.identity);
+            underTile.transform.SetParent(transform);
+        }
+
+        return tile;
+    }
+    private bool CanPlaceTree(float x, float y, float z)
+    {
+        foreach (Vector3 treePos in treePositions)
+        {
+            if (Vector3.Distance(treePos, new Vector3(x, y + 1, z)) < treeMinDistance)
+            {
+                return false; // 5ブロック以内に木があるため生成不可
+            }
+        }
+        return true; // 近くに木がないので生成可能
+    }
+
+    private float SetY(GameObject tile)
     {
         float y = 0;
 
         if (_isPerlinNoiseMap)
         {
-            float xSample = (cube.transform.localPosition.x + _seedX) / _relief;
-            float zSample = (cube.transform.localPosition.z + _seedZ) / _relief;
+            float xSample = (tile.transform.localPosition.x + _seedX) / _relief;
+            float zSample = (tile.transform.localPosition.z + _seedZ) / _relief;
             float noise = Mathf.PerlinNoise(xSample, zSample);
             y = _maxHeight * noise;
         }
@@ -141,29 +148,25 @@ public class MapMakerManager : MonoBehaviour
             y = Mathf.Round(y);
         }
 
-        cube.transform.localPosition = new Vector3(cube.transform.localPosition.x, y, cube.transform.localPosition.z);
-
-        // 高さに応じた色を適用
-        SetCubeColor(cube, y);
+        tile.transform.localPosition = new Vector3(tile.transform.localPosition.x, y, tile.transform.localPosition.z);
 
         return y;
     }
 
-    private void SetCubeColor(GameObject cube, float y)
+    private GameObject GetPrefabByHeight(float height)
     {
-        MeshRenderer renderer = cube.GetComponent<MeshRenderer>();
-        if (renderer == null) return;
-
-        Material mat = new Material(Shader.Find("Standard")); // 新しいマテリアルを作成
-        mat.color = GetColorByHeight(y);
-
-        renderer.material = mat;
-    }
-
-    private Color GetColorByHeight(float y)
-    {
-        if (y > _maxHeight * 0.6f) return Color.red;
-        if (y > _maxHeight * 0.3f) return Color.green;
-        return Color.blue;
+        // 高さに応じて異なるPrefabを返す
+        if (height > _maxHeight - 10) // 土
+        {
+            return dirtPrefab;
+        }
+        else if (height == _minHeight) // 岩盤
+        {
+            return brickPrefab;
+        }
+        else  // 石
+        {
+            return rockPrefab;
+        }
     }
 }
