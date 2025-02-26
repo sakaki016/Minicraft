@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Threading.Tasks;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.TextCore.Text;
 
 public class EnemyAI : MonoBehaviour
 {
     public GameObject goal; //‚±‚ê‚ÉƒvƒŒƒCƒ„[‚ğŠi”[
     public NavMeshAgent agent; //‡@“G‚ª©“®‚Å“®‚­‚½‚ß‚É•K—v
     public float distance; //‡AƒvƒŒƒCƒ„[‚Æ“G‚Ì‹——£‚ğŠi”[‚·‚é•Ï”(distane=‹——£)
-
-    //public float jumpSpeed = 8f;
-    //private float vSpeed = 0f;
-    //private bool jump = false;
 
 
     void Start()
@@ -30,7 +26,7 @@ public class EnemyAI : MonoBehaviour
     //œpœj
     void nextGoal()
     {
-        var randomPos = new Vector3(Random.Range(0, 40), 0, Random.Range(0, 40));
+        var randomPos = new Vector3(UnityEngine.Random.Range(0, 40), 0, UnityEngine.Random.Range(0, 40));
         agent.destination = randomPos;
     }
 
@@ -53,23 +49,32 @@ public class EnemyAI : MonoBehaviour
                 nextGoal();
             }
         }
-
-
-        //if (jump)
-        //{    // if should jump...
-        //    vSpeed = jumpSpeed; // aplly jump speed
-        //    jump = false; // only jump once!
-        //}
-
     }
 
-    //void OnControllerColliderHit(ControllerColliderHit hit)
-    //{
-    //    Debug.Log("“G‚ª•Ç‚É‚Ô‚Â‚©‚Á‚½");
-    //    // only check lateral collisions
-    //    if (Mathf.Abs(hit.normal.y) < 0.5)
-    //    {
-    //        jump = true; // jump if collided laterally
-    //    }
-    //}
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("‚Ô‚Â‚©‚Á‚½‚æ");
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            dealDamage();
+            _ = DelayAsync(destroyCancellationToken);
+        }
+    }
+
+    void dealDamage()
+    {
+        Debug.Log("ƒ_ƒ[ƒWI");
+        
+    }
+
+    private async ValueTask DelayAsync(CancellationToken token)
+    {
+        // X•bŠÔ‘Ò‚Â
+        await Task.Delay(TimeSpan.FromSeconds(1), token);
+
+        //ƒ_ƒ[ƒW‚ğ—^‚¦‚é
+        dealDamage();
+    }
+
+
 }

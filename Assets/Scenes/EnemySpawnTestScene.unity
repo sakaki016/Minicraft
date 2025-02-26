@@ -489,6 +489,13 @@ MonoBehaviour:
   _relief: 15
   _isSmoothness: 0
   _mapSize: 1
+  grassPrefab: {fileID: 7793248760889149777, guid: 5b55528786851b4418fd8df7df919f3f, type: 3}
+  dirtPrefab: {fileID: 7029179619917324579, guid: f2203d65ba3c8eb44a4698b76b7af806, type: 3}
+  rockPrefab: {fileID: 3145961800383955006, guid: f23c5a769e81f8e498573fd5bfcad944, type: 3}
+  brickPrefab: {fileID: 3154402043708689839, guid: be166b69afcc41d41b5ed7182d102958, type: 3}
+  treePrefab: {fileID: 2815258495108629410, guid: 0bcc0ba82b1264545b2c73278e6d2ecb, type: 3}
+  treeSpawnProbability: 0.05
+  treeMinDistance: 5
 --- !u!114 &1398194040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,6 +555,7 @@ GameObject:
   - component: {fileID: 1471317783}
   - component: {fileID: 1471317786}
   - component: {fileID: 1471317787}
+  - component: {fileID: 1471317788}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -671,6 +679,27 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &1471317788
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471317781}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1611346028
 GameObject:
   m_ObjectHideFlags: 0
