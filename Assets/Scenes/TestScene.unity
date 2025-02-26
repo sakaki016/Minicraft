@@ -348,18 +348,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad1dfcf4407e9e4f95f580c05cb6c0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _width: 30
-  _depth: 30
+  _width: 100
+  _depth: 100
   _needToCollider: 0
   _maxHeight: 10
   _isPerlinNoiseMap: 1
-  _relief: 15
+  _relief: 25
   _isSmoothness: 0
   _mapSize: 1
+  grassPrefab: {fileID: 7793248760889149777, guid: 5b55528786851b4418fd8df7df919f3f, type: 3}
   dirtPrefab: {fileID: 7029179619917324579, guid: f2203d65ba3c8eb44a4698b76b7af806, type: 3}
   rockPrefab: {fileID: 3145961800383955006, guid: f23c5a769e81f8e498573fd5bfcad944, type: 3}
   brickPrefab: {fileID: 3154402043708689839, guid: be166b69afcc41d41b5ed7182d102958, type: 3}
-  grassPrefab: {fileID: 7793248760889149777, guid: 5b55528786851b4418fd8df7df919f3f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

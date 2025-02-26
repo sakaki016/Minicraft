@@ -37,6 +37,7 @@ public class MapMakerManager : MonoBehaviour
     private float _mapSize = 1f; // マップのスケール
 
     // 新たにPrefabを参照するための変数
+    [SerializeField] private GameObject grassPrefab; // 草のPrefab
     [SerializeField] private GameObject dirtPrefab; // 土のPrefab
     [SerializeField] private GameObject rockPrefab; // 石のPrefab
     [SerializeField] private GameObject brickPrefab; // 岩盤のPrefab
@@ -83,7 +84,7 @@ public class MapMakerManager : MonoBehaviour
     private GameObject CreateTile(int x, int y, int z)
     {
         // 初期Prefabを決定
-        GameObject prefab = GetPrefabByHeight(y);  // 初期のy座標を基にPrefabを決定
+        GameObject prefab = grassPrefab;  // 初期のPrefabを草ブロックに設定
         GameObject tile = Instantiate(prefab, new Vector3(x, y, z), Quaternion.identity);
 
         // コライダーが不要なら削除
@@ -150,7 +151,7 @@ public class MapMakerManager : MonoBehaviour
         {
             return brickPrefab;
         }
-        else // 石
+        else  // 石
         {
             return rockPrefab;
         }
