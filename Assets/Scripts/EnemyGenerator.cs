@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyGenerator : MonoBehaviour
 {
@@ -32,12 +33,12 @@ public class EnemyGenerator : MonoBehaviour
             {
                 //敵を生成する
                 GameObject enemy = Instantiate(getRandomEnemy());
+                enemy.GetComponent<NavMeshAgent>().enabled = true; //navmeshをアクティブ化
                 //enemyを指定した場所に格納
                 enemy.transform.parent = enemyParentTransform;
 
-
                 //生成した敵の座標を決定する
-                enemy.transform.position = new Vector3(Random.Range(0, fieldSizeX), 10f, Random.Range(0, fieldSizeZ));
+                enemy.transform.position = new Vector3(Random.Range(0, fieldSizeX), 5f, Random.Range(0, fieldSizeZ));
                 //経過時間を初期化して再度時間計測を始める
                 time = 0f;
             }

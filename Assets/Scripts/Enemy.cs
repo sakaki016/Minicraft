@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     {
         if (0 >= hp)
         {
+            transform.rotation = Quaternion.Euler(90f, 0f, 10f);
             Destroy(gameObject);
         }
 
