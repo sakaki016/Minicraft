@@ -1,8 +1,9 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] int hp;
+    public int hp;
 
     private void Update()
     {
