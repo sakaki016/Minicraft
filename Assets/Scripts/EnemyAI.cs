@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Threading.Tasks;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.TextCore.Text;
 
 public class EnemyAI : MonoBehaviour
 {
     public GameObject goal; //‚±‚ê‚ÉƒvƒŒƒCƒ„[‚ğŠi”[
     public NavMeshAgent agent; //‡@“G‚ª©“®‚Å“®‚­‚½‚ß‚É•K—v
     public float distance; //‡AƒvƒŒƒCƒ„[‚Æ“G‚Ì‹——£‚ğŠi”[‚·‚é•Ï”(distane=‹——£)
-
-
-
-
+    Player player;
 
 
     void Start()
@@ -30,7 +27,7 @@ public class EnemyAI : MonoBehaviour
     //œpœj
     void nextGoal()
     {
-        var randomPos = new Vector3(Random.Range(0, 40), 0, Random.Range(0, 40));
+        var randomPos = new Vector3(UnityEngine.Random.Range(0, 40), 0, UnityEngine.Random.Range(0, 40));
         agent.destination = randomPos;
     }
 
@@ -45,7 +42,6 @@ public class EnemyAI : MonoBehaviour
         }
 
         //œpœj
-
         if (agent.pathStatus != NavMeshPathStatus.PathInvalid)
         {
             if (agent.remainingDistance < 0.5f)
@@ -53,7 +49,30 @@ public class EnemyAI : MonoBehaviour
                 nextGoal();
             }
         }
-
     }
 
+    //Õ“Ë”»’è
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player")) //‘ÎÛ‚ªƒvƒŒƒCƒ„[‚Ìê‡
+        {
+            KnockBack();
+        }
+    }
+
+    //“G‚ÌUŒ‚
+    void KnockBack()
+    {
+        _ = DelayAsync(destroyCancellationToken);
+
+        //ƒmƒbƒNƒoƒbƒN
+        var rigidbody = GetComponent<Rigidbody>();
+        rigidbody.AddForce(-transform.forward * 2f, ForceMode.VelocityChange);
+    }
+
+    private async ValueTask DelayAsync(CancellationToken token)
+    {
+        // X•bŠÔ‘Ò‚Â
+        await Task.Delay(TimeSpan.FromSeconds(1f), token);
+    }
 }
