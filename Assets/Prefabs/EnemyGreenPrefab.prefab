@@ -166,7 +166,6 @@ MonoBehaviour:
   goal: {fileID: 0}
   agent: {fileID: 3525397277518939829}
   distance: 1
-  jumpSpeed: 8
 --- !u!195 &3525397277518939829
 NavMeshAgent:
   m_ObjectHideFlags: 0

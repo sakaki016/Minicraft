@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour
     public GameObject goal; //これにプレイヤーを格納
     public NavMeshAgent agent; //①敵が自動で動くために必要
     public float distance; //②プレイヤーと敵の距離を格納する変数(distane=距離)
+    Player player;
 
 
     void Start()
@@ -41,7 +42,6 @@ public class EnemyAI : MonoBehaviour
         }
 
         //徘徊
-
         if (agent.pathStatus != NavMeshPathStatus.PathInvalid)
         {
             if (agent.remainingDistance < 0.5f)
@@ -51,30 +51,28 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    //衝突判定
+    private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("ぶつかったよ");
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player")) //対象がプレイヤーの場合
         {
-            dealDamage();
-            _ = DelayAsync(destroyCancellationToken);
+            KnockBack();
         }
     }
 
-    void dealDamage()
+    //敵の攻撃
+    void KnockBack()
     {
-        Debug.Log("ダメージ！");
-        
+        _ = DelayAsync(destroyCancellationToken);
+
+        //ノックバック
+        var rigidbody = GetComponent<Rigidbody>();
+        rigidbody.AddForce(-transform.forward * 2f, ForceMode.VelocityChange);
     }
 
     private async ValueTask DelayAsync(CancellationToken token)
     {
         // X秒間待つ
-        await Task.Delay(TimeSpan.FromSeconds(1), token);
-
-        //ダメージを与える
-        dealDamage();
+        await Task.Delay(TimeSpan.FromSeconds(1f), token);
     }
-
-
 }

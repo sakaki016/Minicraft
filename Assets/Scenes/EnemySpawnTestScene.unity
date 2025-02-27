@@ -484,7 +484,7 @@ MonoBehaviour:
   _width: 40
   _depth: 40
   _needToCollider: 1
-  _maxHeight: 3
+  _maxHeight: 2
   _isPerlinNoiseMap: 1
   _relief: 15
   _isSmoothness: 0
@@ -556,6 +556,7 @@ GameObject:
   - component: {fileID: 1471317786}
   - component: {fileID: 1471317787}
   - component: {fileID: 1471317788}
+  - component: {fileID: 1471317789}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -625,7 +626,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 672622562}
@@ -700,6 +701,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1471317789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471317781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ba27b8e80843c243b0f8c3e08272e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hp: 30
 --- !u!1 &1611346028
 GameObject:
   m_ObjectHideFlags: 0

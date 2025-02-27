@@ -30,7 +30,6 @@ public class FieldBake : MonoBehaviour
         Build();
     }
 
-
     public void Build()
     {
         surface.BuildNavMesh();
