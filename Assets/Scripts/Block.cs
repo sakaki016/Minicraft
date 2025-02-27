@@ -4,7 +4,19 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    public int hp;
+    [SerializeField] int hp;
+
+    public int Hp
+    {
+        set
+        {
+            hp = value;
+        }
+        get
+        {
+            return hp;
+        }
+    }
 
     public void DestroyBlock()
     {

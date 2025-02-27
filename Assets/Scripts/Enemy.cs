@@ -3,13 +3,23 @@ using System.Collections.Generic;
 
 public class Enemy : MonoBehaviour
 {
-    public int hp;
+    [SerializeField] int hp;
 
-    private void Update()
+    public int Hp
     {
-        if (0 >= hp)
+        set
         {
-            Destroy(gameObject);
+            hp = value;
         }
+        get
+        {
+            return hp;
+        }
+    }
+
+    public void DestroyEnemy()
+    {
+        Destroy(gameObject);
+
     }
 }

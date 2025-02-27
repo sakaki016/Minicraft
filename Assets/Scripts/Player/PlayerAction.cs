@@ -3,24 +3,18 @@ using System.Collections.Generic;
 using Unity.Android.Gradle;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
+using static UnityEditor.Progress;
+using UnityEngine.UIElements;
 
 public class PlayerAction : MonoBehaviour
 {
     [SerializeField] GameObject[] blocks;
-    [SerializeField] GameObject enemys;
-    [SerializeField] SearchBlock searchBlock;
+    [SerializeField] GameObject[] enemys;
     Block block;
-    int blockHp;
     Enemy enemy;
+    int blockHp;
     int count = 0;
-
-    private void Start()
-    {
-        //block = blocks[0].GetComponent<Block>();
-        //blockHp = block.hp;
-        //block = blocks.GetComponent<Block>();
-        enemy = enemys.GetComponent<Enemy>();
-    }
 
     void Update()
     {
@@ -34,24 +28,26 @@ public class PlayerAction : MonoBehaviour
         {
             if (hit.collider.CompareTag("Enemy"))
             {
+                enemy = hit.collider.gameObject.GetComponent<Enemy>();
                 if (Input.GetMouseButtonDown(0))
                 {
-                    enemy.hp -= 2;
-                    Debug.Log("eneHp=" + enemy.hp);
+                    enemy.Hp -= 2;
+                    Debug.Log("eneHp=" + enemy.Hp);
+                    if (enemy.Hp <= 0)
+                    {
+                        enemy.DestroyEnemy();
+                    }
                 }
 
             }
             else if (hit.collider.CompareTag("Block"))
             {
-                //ブロック名→リスト番号→ブロックのhp取得
-                string name = hit.collider.gameObject.name;
-                Debug.Log(name);
-                block.hp = searchBlock.Search(name);
-                //int num = searchBlock.Search(name);
-                //block = blocks[num].GetComponent<Block>();
+
+                
                 if (count == 0)
                 {
-                    blockHp = block.hp;
+                    block = hit.collider.gameObject.GetComponent<Block>();
+                    blockHp = block.Hp;
                     count++;
                 }
                 if (Input.GetMouseButton(0))
@@ -61,6 +57,7 @@ public class PlayerAction : MonoBehaviour
                     if (blockHp <= 0)
                     {
                         block.DestroyBlock();
+                        count = 0;
                     }
 
                     Debug.Log("bloHp=" + blockHp);
@@ -77,4 +74,22 @@ public class PlayerAction : MonoBehaviour
         }
 
     }
+    //public int Search(string name)
+    //{
+    //    var list = new List<string>();
+    //    list.AddRange(blocks);
+    //    //int num = list.IndexOf(name);
+    //    int i;
+    //    for (i = 0; i >= blocks.Length; i++)
+    //    {
+    //        if (list.Contains(name))
+    //        {
+    //            break;
+    //        }
+    //    }
+    //    //Debug.Log(num);
+    //    //return num;
+    //    block = blocks[i].GetComponent<Block>();
+    //    return block.Hp;
+    //}
 }
