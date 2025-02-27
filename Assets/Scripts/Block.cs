@@ -1,14 +1,25 @@
 
+using System;
 using UnityEngine;
 
 public class Block : MonoBehaviour
 {
     [SerializeField] int hp;
-    private void Update()
+
+    public int Hp
     {
-        if (0 >= hp)
+        set
         {
-            Destroy(gameObject);
+            hp = value;
         }
+        get
+        {
+            return hp;
+        }
+    }
+
+    public void DestroyBlock()
+    {
+        Destroy(gameObject);
     }
 }
