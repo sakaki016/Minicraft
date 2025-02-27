@@ -74,22 +74,5 @@ public class PlayerAction : MonoBehaviour
         }
 
     }
-    //public int Search(string name)
-    //{
-    //    var list = new List<string>();
-    //    list.AddRange(blocks);
-    //    //int num = list.IndexOf(name);
-    //    int i;
-    //    for (i = 0; i >= blocks.Length; i++)
-    //    {
-    //        if (list.Contains(name))
-    //        {
-    //            break;
-    //        }
-    //    }
-    //    //Debug.Log(num);
-    //    //return num;
-    //    block = blocks[i].GetComponent<Block>();
-    //    return block.Hp;
-    //}
+   
 }

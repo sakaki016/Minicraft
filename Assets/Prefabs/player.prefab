@@ -151,8 +151,8 @@ MonoBehaviour:
   - {fileID: 3145961800383955006, guid: f23c5a769e81f8e498573fd5bfcad944, type: 3}
   - {fileID: 1407839725115982985, guid: a4e459f0d3f6f074a881012fd111bd93, type: 3}
   - {fileID: 1318158415196052724, guid: fdeaabc05dab2794f9dfef36db942f66, type: 3}
-  enemys: {fileID: 4571268983314254808, guid: b532291f2bd514c438af5e1d41b4dc41, type: 3}
-  searchBlock: {fileID: 0}
+  enemys:
+  - {fileID: 4571268983314254808, guid: b532291f2bd514c438af5e1d41b4dc41, type: 3}
 --- !u!1 &4400203835346864615
 GameObject:
   m_ObjectHideFlags: 0
