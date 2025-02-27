@@ -163,10 +163,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51b09a600b1cd6b47a6af5a2872a9587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goal: {fileID: 0}
+  goal: {fileID: 71915410846242015, guid: ccb5d1e0b84632a40b9d615d6aa1097f, type: 3}
   agent: {fileID: -8765969607103123107}
   distance: 1
-  jumpSpeed: 8
 --- !u!195 &-8765969607103123107
 NavMeshAgent:
   m_ObjectHideFlags: 0

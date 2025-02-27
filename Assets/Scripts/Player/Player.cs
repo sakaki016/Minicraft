@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
 
     void Dead()
     {
+
         Debug.Log("ゲームオーバー");
     }
 
