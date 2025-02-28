@@ -17,7 +17,7 @@ public class EnemyAI : MonoBehaviour
 
         //í«ê’
         agent = GetComponent<NavMeshAgent>();Å@//á@
-        goal = GameObject.Find("Player");
+        goal = GameObject.Find("player");
 
     }
 
