@@ -11,15 +11,26 @@ public class PlayerAction : MonoBehaviour
 {
     [SerializeField] GameObject[] blocks;
     [SerializeField] GameObject[] enemys;
+    List<int> myItemList = new List<int>();
     Block block;
     Enemy enemy;
     int blockHp;
     int count = 0;
 
+    Vector2 displayCenter;
+    // ブロックを設置する位置を一応リアルタイムで格納
+    private Vector3 pos;
+
+    private void Start()
+    {
+        // ↓ 画面中央の平面座標を取得する
+        displayCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+    }
+
     void Update()
     {
         //ターゲットの座標を取得
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(displayCenter);
         RaycastHit hit;
 
 
@@ -38,12 +49,9 @@ public class PlayerAction : MonoBehaviour
                         enemy.DestroyEnemy();
                     }
                 }
-
             }
             else if (hit.collider.CompareTag("Block"))
             {
-
-                
                 if (count == 0)
                 {
                     block = hit.collider.gameObject.GetComponent<Block>();
@@ -52,14 +60,12 @@ public class PlayerAction : MonoBehaviour
                 }
                 if (Input.GetMouseButton(0))
                 {
-
                     blockHp--;
                     if (blockHp <= 0)
                     {
                         block.DestroyBlock();
                         count = 0;
                     }
-
                     Debug.Log("bloHp=" + blockHp);
                 }
                 else
@@ -73,6 +79,16 @@ public class PlayerAction : MonoBehaviour
             count = 0;
         }
 
+        if (Physics.Raycast(ray, out hit, 7.0f))
+        {
+            // ↓ 生成位置の変数の値を「ブロックの向き + ブロックの位置」
+            pos = hit.normal + hit.collider.transform.position;
+            if (Input.GetMouseButtonDown(1))
+            {
+                Instantiate(blocks[1], pos, Quaternion.identity);
+            }
+        }
+
     }
-   
+
 }
