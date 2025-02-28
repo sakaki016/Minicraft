@@ -63,6 +63,8 @@ public class PlayerAction : MonoBehaviour
                     blockHp--;
                     if (blockHp <= 0)
                     {
+                        //壊れたブロックの番号をリストに追加↓
+
                         block.DestroyBlock();
                         count = 0;
                     }
@@ -85,6 +87,7 @@ public class PlayerAction : MonoBehaviour
             pos = hit.normal + hit.collider.transform.position;
             if (Input.GetMouseButtonDown(1))
             {
+                //blocks[1]→myItemListに変更
                 Instantiate(blocks[1], pos, Quaternion.identity);
             }
         }

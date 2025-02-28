@@ -5,6 +5,7 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     [SerializeField] int hp;
+    [SerializeField] int number;
 
     public int Hp
     {
