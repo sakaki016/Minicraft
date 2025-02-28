@@ -9,7 +9,7 @@ public class FieldBake : MonoBehaviour
     [SerializeField] private NavMeshSurface surface;
     [SerializeField] int delay;
 
-
+    //NavMeshSurfaceをワールド生成直後にビルド
     void Start()
     {
         Build();
