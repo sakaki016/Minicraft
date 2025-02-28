@@ -9,8 +9,6 @@ public class EnemyAI : MonoBehaviour
     public GameObject goal; //これにプレイヤーを格納
     public NavMeshAgent agent; //①敵が自動で動くために必要
     public float distance; //②プレイヤーと敵の距離を格納する変数(distane=距離)
-    Player player;
-
 
     void Start()
     {
@@ -67,7 +65,7 @@ public class EnemyAI : MonoBehaviour
 
         //ノックバック
         var rigidbody = GetComponent<Rigidbody>();
-        rigidbody.AddForce(-transform.forward * 2f, ForceMode.VelocityChange);
+        rigidbody.AddForce(-transform.forward * 3f, ForceMode.VelocityChange);
     }
 
     private async ValueTask DelayAsync(CancellationToken token)

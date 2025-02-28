@@ -1,42 +1,41 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditorInternal.ReorderableList;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] int Hp;
     private bool isDamage = false;
+    //ゲームオーバーUI
+    public GameObject gameOverUi;
+    private bool isDead = false;
 
     void Update()
     {
-        if (Hp <= 0)
+        if (PlayerStats.instance.Health <= 0) //HPが0以下になったら
         {
             Dead();
         }
 
-        if (isDamage)
+        if (isDamage && isDead == false) //ダメージ中は
         {
-            //点滅処理
-            FlushController.instance.RedFlush();
+            FlushController.instance.RedFlush(); //点滅
         }
         else
         {
             FlushController.instance.NoFlush();
         }
-
     }
 
 
     void Dead()
     {
-
-        Debug.Log("ゲームオーバー");
+        isDead = true;
+        GetComponent<PlayerMovement>().enabled = false;
+        gameOverUi.SetActive(true);
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.tag == "Enemy")
+        if (hit.gameObject.tag == "Enemy" && isDead == false)
         {
             if (isDamage) return;
 
@@ -47,8 +46,7 @@ public class Player : MonoBehaviour
     public IEnumerator OnDamage()
     {
         isDamage = true;
-        Hp -= 10;
-        Debug.Log("現在のHP: " + Hp);
+        PlayerStats.instance.TakeDamage(1);
 
         //ノックバック
         var rigidbody = GetComponent<Rigidbody>();
@@ -58,6 +56,5 @@ public class Player : MonoBehaviour
 
         // 通常状態に戻す
         isDamage = false;
-
     }
 }
