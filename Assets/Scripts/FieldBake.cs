@@ -1,6 +1,6 @@
 using System;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Unity.AI.Navigation;
 using UnityEngine;
 
@@ -9,31 +9,30 @@ public class FieldBake : MonoBehaviour
     [SerializeField] private NavMeshSurface surface;
     [SerializeField] int delay;
 
+
     //NavMeshSurfaceをワールド生成直後にビルド
     void Start()
     {
         Build();
+        Debug.Log("初期ビルド");
+        UpdateLoop(this.GetCancellationTokenOnDestroy()).Forget();
     }
 
-    void Update()
+    async UniTaskVoid UpdateLoop(CancellationToken ct = default)
     {
-        _ = DelayAsync(destroyCancellationToken);
-
-    }
-
-    private async ValueTask DelayAsync(CancellationToken token)
-    {
-        // X秒間待つ
-        await Task.Delay(TimeSpan.FromSeconds(delay), token);
-
-        //Bakeする
-        Build();
+        while (true)
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: ct);
+            Build();
+        }
     }
 
     public void Build()
     {
         surface.BuildNavMesh();
+        Debug.Log("再ビルド");
     }
+
 }
 
 

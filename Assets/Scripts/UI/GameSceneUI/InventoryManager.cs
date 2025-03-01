@@ -1,5 +1,16 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+/*-------------------------«’†¼ì‹Æ«-------------------------*/
+[System.Serializable]
+public struct StartingItem
+{
+    public ItemScriptableObject itemData;
+    public int amount;
+    public Vector2Int position; // Inventory position
+}
+
 
 public class InventoryManager : MonoBehaviour
 {
@@ -20,4 +31,6 @@ public class InventoryManager : MonoBehaviour
     {
         items.Remove(item);
     }
+
+
 }
