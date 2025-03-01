@@ -16,4 +16,6 @@ public enum ItemType
 {
     Wood,
     Rock,
+    Sword_Wood,
+    Sword_Rock
 }

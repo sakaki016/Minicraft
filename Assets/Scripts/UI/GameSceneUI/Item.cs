@@ -9,7 +9,7 @@ public class Item
     public GameObject itemPrefab; // ゲーム内で配置する場合のプレハブ
 
 
-    /*-------------------------↓中西作業↓-------------------------*/
+    /*--------------------------------------↓中西作業↓--------------------------------------*/
 
     public ItemScriptableObject itemScriptableObject;
     //public ItemType itemType;
@@ -81,7 +81,7 @@ public class Item
 
     public bool IsStackable()
     {
-        return true;// IsStackable(itemType);
+        return true; // IsStackable(itemType);
     }
 
 
@@ -89,37 +89,13 @@ public class Item
     {
         switch (itemType)
         {
-            default:
-            case ItemType.Coin:
-            case ItemType.HealthPotion:
-            case ItemType.ManaPotion:
-                return true;
-            case ItemType.Sword:
-            case ItemType.SwordNone:
-            case ItemType.Medkit:
-            case ItemType.Sword_1:
-            case ItemType.Sword_2:
-            case ItemType.HelmetNone:
-            case ItemType.Helmet:
-            case ItemType.ArmorNone:
-            case ItemType.Armor_1:
-            case ItemType.Armor_2:
-                return false;
-
             case ItemType.Wood:
-            case ItemType.Planks:
-            case ItemType.Stick:
-            case ItemType.Diamond:
+            case ItemType.Rock:
                 return true;
-            case ItemType.Sword_Diamond:
+            case ItemType.Sword_Rock:
             case ItemType.Sword_Wood:
                 return false;
         }
-    }
-
-    public int GetCost()
-    {
-        return 0;// GetCost(itemType);
     }
 
     public static int GetCost(ItemType itemType)
@@ -127,14 +103,8 @@ public class Item
         switch (itemType)
         {
             default:
-            case ItemType.ArmorNone: return 0;
-            case ItemType.Armor_1: return 30;
-            case ItemType.Armor_2: return 100;
-            case ItemType.HelmetNone: return 0;
-            case ItemType.Helmet: return 90;
-            case ItemType.HealthPotion: return 30;
-            case ItemType.Sword_1: return 0;
-            case ItemType.Sword_2: return 150;
+            case ItemType.Sword_Wood: return 0;
+            case ItemType.Sword_Rock: return 150;
         }
     }
 
@@ -143,32 +113,20 @@ public class Item
         return itemScriptableObject.itemName;
     }
 
-    public CharacterEquipment.EquipSlot GetEquipSlot()
-    {
-        return itemScriptableObject.equipSlot;
-        /*
-        switch (itemType) {
-        default:
-            return CharacterEquipment.EquipSlot.None;
-        case ItemType.ArmorNone:
-        case ItemType.Armor_1:
-        case ItemType.Armor_2:
-            return CharacterEquipment.EquipSlot.Armor;
-        case ItemType.HelmetNone:
-        case ItemType.Helmet:
-            return CharacterEquipment.EquipSlot.Helmet;
-        case ItemType.SwordNone:
-        case ItemType.Sword:
-        case ItemType.Sword_1:
-        case ItemType.Sword_2:
-        case ItemType.Sword_Wood:
-        case ItemType.Sword_Diamond:
-            return CharacterEquipment.EquipSlot.Weapon;
-        }
-        */
+    //public CharacterEquipment.EquipSlot GetEquipSlot()
+    //{
+    //    return itemScriptableObject.equipSlot;
+    /*
+    switch (itemType) {
+    default:
+    case ItemType.SwordNone:
+    case ItemType.Sword_Wood:
+    case ItemType.Sword_Rock:
+        return CharacterEquipment.EquipSlot.Weapon;
     }
+    */
+    //}
 
-
-    /*-------------------------↑中西作業↑-------------------------*/
+    /*--------------------------------------↑中西作業↑--------------------------------------*/
 
 }
