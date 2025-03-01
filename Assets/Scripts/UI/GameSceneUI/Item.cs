@@ -9,7 +9,7 @@ public class Item
     public GameObject itemPrefab; // ゲーム内で配置する場合のプレハブ
 
 
-    /*--------------------------------------↓中西作業↓--------------------------------------*/
+    /*----------------------------------------------------↓中西作業↓----------------------------------------------------*/
 
     public ItemScriptableObject itemScriptableObject;
     //public ItemType itemType;
@@ -84,16 +84,16 @@ public class Item
         return true; // IsStackable(itemType);
     }
 
-
     public static bool IsStackable(ItemType itemType)
     {
         switch (itemType)
         {
+            default:
             case ItemType.Wood:
             case ItemType.Rock:
                 return true;
-            case ItemType.Sword_Rock:
             case ItemType.Sword_Wood:
+            case ItemType.Sword_Rock:
                 return false;
         }
     }
@@ -113,7 +113,8 @@ public class Item
         return itemScriptableObject.itemName;
     }
 
-    //public CharacterEquipment.EquipSlot GetEquipSlot()
+
+    //public CharacterEquipment.EquipSlot GetEquipSlot() //つかう？
     //{
     //    return itemScriptableObject.equipSlot;
     /*
@@ -127,6 +128,6 @@ public class Item
     */
     //}
 
-    /*--------------------------------------↑中西作業↑--------------------------------------*/
+    /*----------------------------------------------------↑中西作業↑----------------------------------------------------*/
 
 }

@@ -33,24 +33,4 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    /*-------------------------«’†¼ì‹Æ«-------------------------*/
-    public List<StartingItem> startingItems;
-    private void Start()
-    {
-        foreach (StartingItem si in startingItems)
-        {
-            AddItem(new Item(si.itemData, si.amount), si.position);
-        }
-    }
-
-    public bool AddItem(Item item, Vector2Int position)
-    {
-        if (items.Count < maxSlots)
-        {
-            items.Add(item);
-            return true;
-        }
-        return false; // ƒCƒ“ƒxƒ“ƒgƒŠ‚ª–”t
-    }
-    /*-------------------------ª’†¼ì‹Æª-------------------------*/
 }
