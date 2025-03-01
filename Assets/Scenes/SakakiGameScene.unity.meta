@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/AllTestScene.unity.meta
+guid: 84bf3538386969142a328ae6d3283067
+========
 guid: b12478517bb6a8a4195f8a6483d296e0
+>>>>>>>> feature/inventory_manager:Assets/Scenes/SakakiGameScene.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

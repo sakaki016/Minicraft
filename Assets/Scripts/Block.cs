@@ -6,6 +6,7 @@ public class Block : MonoBehaviour
 {
     [SerializeField] int hp;
     [SerializeField] int number;
+    [SerializeField] Item blockItem; // このブロックがドロップするアイテム
 
     public int Hp
     {
