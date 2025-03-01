@@ -61,23 +61,23 @@ public class Item
         }
     }
 
-    public Color GetColor()
-    {
-        return Color.white;// GetColor(itemType);
-    }
+    //public Color GetColor()
+    //{
+    //    return Color.white;// GetColor(itemType);
+    //}
 
-    public static Color GetColor(ItemType itemType)
-    {
-        switch (itemType)
-        {
-            default:
-            case ItemType.Sword: return new Color(1, 1, 1);
-            case ItemType.HealthPotion: return new Color(1, 0, 0);
-            case ItemType.ManaPotion: return new Color(0, 0, 1);
-            case ItemType.Coin: return new Color(1, 1, 0);
-            case ItemType.Medkit: return new Color(1, 0, 1);
-        }
-    }
+    //public static Color GetColor(ItemType itemType)
+    //{
+    //    switch (itemType)
+    //    {
+    //        default:
+    //        case ItemType.Sword: return new Color(1, 1, 1);
+    //        case ItemType.HealthPotion: return new Color(1, 0, 0);
+    //        case ItemType.ManaPotion: return new Color(0, 0, 1);
+    //        case ItemType.Coin: return new Color(1, 1, 0);
+    //        case ItemType.Medkit: return new Color(1, 0, 1);
+    //    }
+    //}
 
     public bool IsStackable()
     {
