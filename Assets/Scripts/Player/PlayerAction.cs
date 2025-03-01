@@ -12,6 +12,7 @@ public class PlayerAction : MonoBehaviour
     [SerializeField] GameObject[] blocks;
     [SerializeField] GameObject[] enemys;
     List<int> myItemList = new List<int>();
+    [SerializeField] InventoryManager inventoryManager; // インベントリを参照
     Block block;
     Enemy enemy;
     int blockHp;
@@ -25,9 +26,10 @@ public class PlayerAction : MonoBehaviour
     {
         // ↓ 画面中央の平面座標を取得する
         displayCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+        inventoryManager = FindObjectOfType<InventoryManager>(); // シーン内のInventoryManagerを取得
     }
 
-    void Update()
+        void Update()
     {
         //ターゲットの座標を取得
         Ray ray = Camera.main.ScreenPointToRay(displayCenter);
@@ -63,7 +65,12 @@ public class PlayerAction : MonoBehaviour
                     blockHp--;
                     if (blockHp <= 0)
                     {
-                        //壊れたブロックの番号をリストに追加↓
+                        // **ブロックのアイテムをインベントリに追加**
+                        //Item droppedItem = block.GetItem();
+                        //if (droppedItem != null)
+                        //{
+                        //    inventoryManager.AddItem(droppedItem);
+                        //}
 
                         block.DestroyBlock();
                         count = 0;
