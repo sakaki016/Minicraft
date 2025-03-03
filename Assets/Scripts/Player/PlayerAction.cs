@@ -13,6 +13,7 @@ public class PlayerAction : MonoBehaviour
     [SerializeField] GameObject[] enemys;
     List<int> myItemList = new List<int>();
     [SerializeField] InventoryManager inventoryManager; // インベントリを参照
+    [SerializeField] InventoryUI inventoryUI; // インベントリを参照
     Block block;
     Enemy enemy;
     int blockHp;
@@ -66,11 +67,21 @@ public class PlayerAction : MonoBehaviour
                     if (blockHp <= 0)
                     {
                         // **ブロックのアイテムをインベントリに追加**
-                        //Item droppedItem = block.GetItem();
-                        //if (droppedItem != null)
-                        //{
-                        //    inventoryManager.AddItem(droppedItem);
-                        //}
+                        Item droppedItem = block.GetItem();
+                        if (droppedItem != null)
+                        {
+                            bool added = inventoryManager.AddItem(droppedItem);
+                            if (added)
+                            {
+                                Debug.Log("アイテム追加: " + block.name);
+                                inventoryUI.UpdateUI(); // UI 更新を追加
+
+                            }
+                            else
+                            {
+                                Debug.Log("インベントリが満杯です！");
+                            }
+                        }
 
                         block.DestroyBlock();
                         count = 0;

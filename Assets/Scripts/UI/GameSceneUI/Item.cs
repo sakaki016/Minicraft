@@ -6,6 +6,7 @@ public class Item
     public string itemName;
     public Sprite icon;
     public int maxStack;
+    public int count;
     public GameObject itemPrefab; // ゲーム内で配置する場合のプレハブ
 
 
