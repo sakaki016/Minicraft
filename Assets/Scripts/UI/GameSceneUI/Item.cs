@@ -16,6 +16,17 @@ public class Item
     public int amount = 1;
     private IItemHolder itemHolder;
 
+    public enum ItemType
+    {
+        None,
+        Sword,
+        //HealthPotion,
+        Wood,
+        Rock,
+        Stick,
+        Sword_Wood,
+        Sword_Rock,
+    }
 
     public void SetItemHolder(IItemHolder itemHolder)
     {
@@ -55,29 +66,12 @@ public class Item
         switch (itemType)
         {
             default:
+            case ItemType.Stick: return ItemAssets.Instance.s_Stick;
             case ItemType.Rock: return ItemAssets.Instance.s_Rock;
-
             case ItemType.Wood: return ItemAssets.Instance.s_Wood;
         }
     }
 
-    //public Color GetColor()
-    //{
-    //    return Color.white;// GetColor(itemType);
-    //}
-
-    //public static Color GetColor(ItemType itemType)
-    //{
-    //    switch (itemType)
-    //    {
-    //        default:
-    //        case ItemType.Sword: return new Color(1, 1, 1);
-    //        case ItemType.HealthPotion: return new Color(1, 0, 0);
-    //        case ItemType.ManaPotion: return new Color(0, 0, 1);
-    //        case ItemType.Coin: return new Color(1, 1, 0);
-    //        case ItemType.Medkit: return new Color(1, 0, 1);
-    //    }
-    //}
 
     public bool IsStackable()
     {
@@ -92,19 +86,10 @@ public class Item
             case ItemType.Wood:
             case ItemType.Rock:
                 return true;
+            case ItemType.Stick:
             case ItemType.Sword_Wood:
             case ItemType.Sword_Rock:
                 return false;
-        }
-    }
-
-    public static int GetCost(ItemType itemType)
-    {
-        switch (itemType)
-        {
-            default:
-            case ItemType.Sword_Wood: return 0;
-            case ItemType.Sword_Rock: return 150;
         }
     }
 
