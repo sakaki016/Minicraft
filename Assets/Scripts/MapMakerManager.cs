@@ -10,6 +10,7 @@ public class MapMakerManager : MonoBehaviour
     // シード値（ノイズ用）
     private float _seedX, _seedZ;
     private float _minHeight = -5; // 底（岩盤）
+    private float _maxHeight = 4; // 最大高さ
 
     [SerializeField]
     [Header("------実行中に変えれない------")]
@@ -20,9 +21,7 @@ public class MapMakerManager : MonoBehaviour
     [SerializeField]
     private bool _needToCollider = false; // コライダーをつけるかどうか
 
-    [SerializeField]
     [Header("------実行中に変えられる------")]
-    private float _maxHeight = 10; // 最大高さ
 
     [SerializeField]
     private bool _isPerlinNoiseMap = true; // パーリンノイズを使うか
@@ -156,7 +155,7 @@ public class MapMakerManager : MonoBehaviour
     private GameObject GetPrefabByHeight(float height)
     {
         // 高さに応じて異なるPrefabを返す
-        if (height > _maxHeight - 10) // 土
+        if (height > _maxHeight - 5) // 土
         {
             return dirtPrefab;
         }

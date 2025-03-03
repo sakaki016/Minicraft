@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
     private bool isDamage = false;
     //ゲームオーバーUI
     public GameObject gameOverUi;
+    public GameObject belongingUi;
+    public GameObject inventoryUi;
     private bool isDead = false;
 
     void Update()
@@ -30,6 +32,8 @@ public class Player : MonoBehaviour
     {
         isDead = true;
         GetComponent<PlayerMovement>().enabled = false;
+        inventoryUi.SetActive(false);
+        belongingUi.SetActive(false);
         gameOverUi.SetActive(true);
     }
 
