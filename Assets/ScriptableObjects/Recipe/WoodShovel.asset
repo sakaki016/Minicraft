@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7e460be5f771844e93863bdaf6bdfc3, type: 3}
-  m_Name: WoodSword
+  m_Name: WoodShovel
   m_EditorClassIdentifier: 
-  output: {fileID: 11400000, guid: 5ba8c92b5974f97478dfd3e2105215da, type: 2}
+  output: {fileID: 11400000, guid: 51deb5fabe121bc49bca8688713fb848, type: 2}
   item_00: {fileID: 0}
   item_10: {fileID: 11400000, guid: 67cc889bf46a6b847883583d6edbce1c, type: 2}
   item_20: {fileID: 0}
   item_01: {fileID: 0}
-  item_11: {fileID: 11400000, guid: 2bfe91274f588d84597b77045bd5ed22, type: 2}
+  item_11: {fileID: 11400000, guid: 67cc889bf46a6b847883583d6edbce1c, type: 2}
   item_21: {fileID: 0}
   item_02: {fileID: 0}
   item_12: {fileID: 11400000, guid: 2bfe91274f588d84597b77045bd5ed22, type: 2}

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f7c53c5683d5448b176587f7e7be25, type: 3}
   m_Name: Sword_Wood
   m_EditorClassIdentifier: 
-  itemName: Sword_Rock
-  itemSprite: {fileID: 0}
+  itemName: Sword_Wood
+  itemSprite: {fileID: 1129038486, guid: 2a1139da2c4f8b145a78d325043dd617, type: 3}

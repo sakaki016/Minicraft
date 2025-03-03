@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9f7c53c5683d5448b176587f7e7be25, type: 3}
-  m_Name: Wood
+  m_Name: Shovel_Rock
   m_EditorClassIdentifier: 
-  itemName: Wood
-  itemSprite: {fileID: 1591582843, guid: 95364e42d0002d146b83fe07d892ae33, type: 3}
+  itemName: Shovel_Rock
+  itemSprite: {fileID: 1355531981, guid: 78b8db71191be4d4b85a2eee548251ed, type: 3}

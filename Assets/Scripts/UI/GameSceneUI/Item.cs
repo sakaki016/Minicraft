@@ -23,9 +23,17 @@ public class Item
         //HealthPotion,
         Wood,
         Rock,
+        Dirt,
+        Leaf,
         Stick,
         Sword_Wood,
         Sword_Rock,
+        Ax_Wood,
+        Ax_Rock,
+        PickeAx_Wood,
+        PickeAx_Rock,
+        Shovel_Rock,
+        Shovel_Wood,
     }
 
     public void SetItemHolder(IItemHolder itemHolder)
@@ -73,9 +81,10 @@ public class Item
     }
 
 
+    //スタックできるか
     public bool IsStackable()
     {
-        return true; // IsStackable(itemType);
+        return true;
     }
 
     public static bool IsStackable(ItemType itemType)
@@ -85,10 +94,18 @@ public class Item
             default:
             case ItemType.Wood:
             case ItemType.Rock:
+            case ItemType.Dirt:
+            case ItemType.Leaf:
                 return true;
             case ItemType.Stick:
             case ItemType.Sword_Wood:
             case ItemType.Sword_Rock:
+            case ItemType.Ax_Wood:
+            case ItemType.Ax_Rock:
+            case ItemType.PickeAx_Wood:
+            case ItemType.PickeAx_Rock:
+            case ItemType.Shovel_Rock:
+            case ItemType.Shovel_Wood:
                 return false;
         }
     }
