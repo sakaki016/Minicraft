@@ -89,7 +89,11 @@ public class InventoryUI : MonoBehaviour
 
             Image itemImage = slots[i].transform.Find("ItemImage")?.GetComponent<Image>();
             TextMeshProUGUI text = slots[i].transform.Find("Number")?.GetComponent<TextMeshProUGUI>();
-
+            if (text == null)
+            {
+                Debug.LogError("スロット " + i + " の Number が見つかりません！");
+                continue;
+            }
             if (itemImage != null)
             {
                 itemImage.sprite = item.icon;
@@ -98,7 +102,10 @@ public class InventoryUI : MonoBehaviour
 
             if (text != null)
             {
-                text.text = (item.count > 1) ? item.count.ToString() : "";
+                int itemCount = inventory.items[i].amount;
+                Debug.Log("スロット " + i + " のアイテム数: " + itemCount);
+
+                text.text = (itemCount > 1) ? itemCount.ToString() : ""; // 1個のときは非表示
             }
         }
     }

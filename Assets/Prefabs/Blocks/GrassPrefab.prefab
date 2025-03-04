@@ -122,3 +122,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 5
   number: 3
+  blockItem:
+    itemName: Dirt
+    icon: {fileID: 1087082654, guid: fc7c0d593c73cdc4dbf2ffbcfce43353, type: 3}
+    maxStack: 64
+    count: 1
+    itemPrefab: {fileID: 7029179619917324579, guid: f2203d65ba3c8eb44a4698b76b7af806, type: 3}
+    itemScriptableObject: {fileID: 11400000, guid: 2ff023667f6a7a041aa02470e55fef38, type: 2}
+    amount: 1

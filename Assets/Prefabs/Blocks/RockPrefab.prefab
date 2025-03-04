@@ -122,3 +122,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 7
   number: 4
+  blockItem:
+    itemName: Rock
+    icon: {fileID: 272341760, guid: 823e8c190226c88499f38bd2285f4f6f, type: 3}
+    maxStack: 64
+    count: 1
+    itemPrefab: {fileID: 3145961800383955006}
+    itemScriptableObject: {fileID: 11400000, guid: 3f75d9688796b6d4a9b878271c95bd66, type: 2}
+    amount: 1
