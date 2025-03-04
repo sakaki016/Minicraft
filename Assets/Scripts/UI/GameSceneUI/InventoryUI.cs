@@ -4,16 +4,16 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    public GameObject inventoryPanel;
-    public Transform slotParent; // スロットの親オブジェクト
-    public GameObject slotPrefab; // スロットのプレハブ
+    [SerializeField] GameObject inventoryPanel;
+    [SerializeField] Transform slotParent; // スロットの親オブジェクト
+    [SerializeField] GameObject slotPrefab; // スロットのプレハブ
     private InventoryManager inventory;
-    public GameObject backgroundPanel;
+    [SerializeField] GameObject backgroundPanel;
 
-    public CameraController cameraController; 
-    public PlayerMovement playerMovement; 
-    public PlayerAction playerAction;
-
+    [SerializeField] CameraController cameraController;
+    [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] PlayerAction playerAction;
+    
     void Start()
     {
         inventory = FindObjectOfType<InventoryManager>();
