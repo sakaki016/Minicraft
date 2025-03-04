@@ -10097,8 +10097,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad1dfcf4407e9e4f95f580c05cb6c0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _width: 20
-  _depth: 20
+  _width: 15
+  _depth: 15
   _needToCollider: 0
   _isPerlinNoiseMap: 1
   _relief: 15

@@ -54,57 +54,51 @@ public class InventoryUI : MonoBehaviour
             return;
         }
 
-        // すべてのスロットを取得
-        Transform[] slots = slotParent.GetComponentsInChildren<Transform>();
+        // スロットを取得（slotParent の直接の子にある Slot スクリプトがアタッチされたオブジェクトのみ）
+        Slot[] slots = slotParent.GetComponentsInChildren<Slot>();
 
         if (slots.Length < 45)
         {
-            Debug.LogError("スロットの数が不足しています！");
+            Debug.LogError($"スロットの数が不足しています！現在のスロット数: {slots.Length}");
             return;
         }
 
         // すべてのスロットのアイコンと数量をクリア
-        for (int i = 0; i < 45; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
-            Transform slot = slots[i];
+            Image itemImage = slots[i].transform.Find("ItemImage")?.GetComponent<Image>();
+            TextMeshProUGUI text = slots[i].transform.Find("Number")?.GetComponent<TextMeshProUGUI>();
 
-            // Slot の子オブジェクトにある ItemImage を取得
-            Image itemImage = slot.Find("ItemImage")?.GetComponent<Image>();
             if (itemImage != null)
             {
-                itemImage.sprite = null; // アイコンをクリア
-                itemImage.enabled = false; // 非表示にする
+                itemImage.sprite = null;
+                itemImage.gameObject.SetActive(false); // ここで非アクティブにする
             }
 
-            // Slot の子オブジェクトにある Number (数量表示) を取得
-            TextMeshProUGUI text = slot.Find("Number")?.GetComponent<TextMeshProUGUI>();
             if (text != null)
             {
-                text.text = ""; // 数量をクリア
+                text.text = "";
             }
         }
 
         // アイテムをスロットに反映
-        for (int i = 0; i < inventory.items.Count; i++)
+        for (int i = 0; i < Mathf.Min(inventory.items.Count, slots.Length); i++)
         {
-            if (i >= 45) break; // スロット数を超えたら終了
+            Item item = inventory.items[i]; // 追加するアイテム
+            if (item == null) continue; // 念のため
 
-            Transform slot = slots[i];
+            Image itemImage = slots[i].transform.Find("ItemImage")?.GetComponent<Image>();
+            TextMeshProUGUI text = slots[i].transform.Find("Number")?.GetComponent<TextMeshProUGUI>();
 
-            // Slot の子オブジェクトにある ItemImage を取得
-            Image itemImage = slot.Find("ItemImage")?.GetComponent<Image>();
             if (itemImage != null)
             {
-                itemImage.sprite = inventory.items[i].icon;
-                itemImage.enabled = true; // アイコンを表示
+                itemImage.sprite = item.icon;
+                itemImage.gameObject.SetActive(true); // アイテムがある場合は表示
             }
 
-            // Slot の子オブジェクトにある Number (数量表示) を取得
-            TextMeshProUGUI text = slot.Find("Number")?.GetComponent<TextMeshProUGUI>();
             if (text != null)
             {
-                int itemCount = inventory.items[i].count; // アイテムの数を取得
-                text.text = (itemCount > 1) ? itemCount.ToString() : ""; // 1個のときは非表示
+                text.text = (item.count > 1) ? item.count.ToString() : "";
             }
         }
     }
