@@ -10,13 +10,19 @@ public class FieldBake : MonoBehaviour
     [SerializeField] int delay;
 
 
-    //NavMeshSurfaceをワールド生成直後にビルド
+    /// <summary>
+    /// NavMeshSurfaceをワールド生成直後にビルド
+    /// </summary>
     void Start()
     {
         Build();
-        UpdateLoop(this.GetCancellationTokenOnDestroy()).Forget();
+        UpdateLoopAsync(this.GetCancellationTokenOnDestroy()).Forget();
     }
-    async UniTaskVoid UpdateLoop(CancellationToken ct = default)
+
+    /// <summary>
+    /// 遅延処理
+    /// </summary>
+    async UniTaskVoid UpdateLoopAsync(CancellationToken ct = default)
     {
         while (true)
         {
@@ -25,6 +31,9 @@ public class FieldBake : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// マップのNavMeshを更新
+    /// </summary>
     public void Build()
     {
         surface.BuildNavMesh();

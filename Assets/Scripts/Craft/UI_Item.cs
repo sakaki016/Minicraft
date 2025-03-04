@@ -4,6 +4,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
+/*
+ * “®‚­‚©‚í‚©‚ç‚È‚¢‚ª‚¨‚¢‚Ä‚¨‚­
+ */
 public class UI_Item : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
 

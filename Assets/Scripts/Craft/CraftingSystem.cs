@@ -159,17 +159,24 @@ public class CraftingSystem : IItemHolder
             outputItem = null;
         }
         else
-        {
+        {   //レシピから加工後アイテムを取得
             outputItem = new Item { itemScriptableObject = recipeOutput };
             outputItem.SetItemHolder(this);
         }
     }
 
+    /// <summary>
+    /// 加工アイテム取得
+    /// </summary>
+    /// <returns>加工アイテム</returns>
     public Item GetOutputItem()
     {
         return outputItem;
     }
 
+    /// <summary>
+    /// 加工で使ったアイテムを消費する
+    /// </summary>
     public void ConsumeRecipeItems()
     {
         for (int x = 0; x < GRID_SIZE; x++)

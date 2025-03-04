@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+
+/*
+ * Unityエディタ上でレシピをつくるためのやつ
+ */
+
 [CustomEditor(typeof(RecipeScriptableObject))]
 public class RecipeScriptableObjectEditor : Editor {
 

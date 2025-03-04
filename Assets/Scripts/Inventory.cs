@@ -11,16 +11,10 @@ public class Inventory : IItemHolder
     private Action<Item> useItemAction;
     private InventorySlot[] inventorySlotArray;
 
-    public Inventory(Action<Item> useItemAction, int inventorySlotCount)
+    public Inventory(Action<Item> useItemAction)
     {
         this.useItemAction = useItemAction;
         itemList = new List<Item>();
-
-        inventorySlotArray = new InventorySlot[inventorySlotCount];
-        for (int i = 0; i < inventorySlotCount; i++)
-        {
-            inventorySlotArray[i] = new InventorySlot(i);
-        }
 
 
         //AddItem(new Item { itemType = Item.ItemType.Stick, amount = 10 }); //テスト用

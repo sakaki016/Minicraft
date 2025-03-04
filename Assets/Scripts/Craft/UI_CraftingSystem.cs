@@ -55,7 +55,10 @@ public class UI_CraftingSystem : MonoBehaviour
         craftingSystem.TryAddItem(e.item, e.x, e.y);
     }
 
-    private void UpdateVisual() // 更新
+    /// <summary>
+    /// クラフトUI表示を更新
+    /// </summary>
+    private void UpdateVisual() 
     {
         // 元から入ってたアイテムを削除
         foreach (Transform child in itemContainer)
@@ -75,6 +78,7 @@ public class UI_CraftingSystem : MonoBehaviour
             }
         }
 
+        //加工
         if (craftingSystem.GetOutputItem() != null)
         {
             CreateItemOutput(craftingSystem.GetOutputItem());
@@ -89,6 +93,10 @@ public class UI_CraftingSystem : MonoBehaviour
         itemTransform.GetComponent<UI_Item>().SetItem(item);
     }
 
+    /// <summary>
+    /// 加工を実行
+    /// </summary>
+    /// <param name="item"></param>
     private void CreateItemOutput(Item item)
     {
         Transform itemTransform = Instantiate(pfUI_Item, itemContainer);

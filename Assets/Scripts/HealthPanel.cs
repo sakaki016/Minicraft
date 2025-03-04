@@ -3,13 +3,17 @@ using UnityEngine.UI;
 
 public class HealthPanel : MonoBehaviour
 {
-    public GameObject[] icons;
+    [SerializeField] GameObject[] icons;
 
     public void Update()
     {
         UpdateLife(PlayerStats.instance.Health);
     }
 
+    /// <summary>
+    /// ライフ表示を更新
+    /// </summary>
+    /// <param name="life">現在のライフ</param>
     public void UpdateLife(int life)
     {
         for (int i = 0; i < icons.Length; i++)

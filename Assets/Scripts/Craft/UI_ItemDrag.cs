@@ -3,6 +3,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
+/*
+ * g‚¤‚©‚í‚©‚ç‚È‚¢‚Ì‚Å‚¢‚Á‚½‚ñ˜‚¦’u‚«
+ */
+
 public class UI_ItemDrag : MonoBehaviour
 {
 
