@@ -4,66 +4,74 @@ using UnityEngine;
 
 public class Inventory : IItemHolder
 {
-
     public event EventHandler OnItemListChanged;
 
-    private List<Item> itemList;
-    private Action<Item> useItemAction;
-    private InventorySlot[] inventorySlotArray;
+    private List<Item> _itemList;
+    private Action<Item> _useItemAction;
+    private InventorySlot[] _inventorySlotArray;
 
     public Inventory(Action<Item> useItemAction)
     {
-        this.useItemAction = useItemAction;
-        itemList = new List<Item>();
+        this._useItemAction = useItemAction;
+        _itemList = new List<Item>();
 
 
-        //AddItem(new Item { itemType = Item.ItemType.Stick, amount = 10 }); //テスト用
-        //AddItem(new Item { itemType = Item.ItemType.Rock amount = 10 });
-        //AddItem(new Item { itemType = Item.ItemType.Sword_Wood });
+        /****************テスト用 **************/
+        AddItem(new Item { itemType = Item.ItemType.Stick, amount = 10 });
+        AddItem(new Item { itemType = Item.ItemType.Rock, amount = 10 });
+        AddItem(new Item { itemType = Item.ItemType.Sword_Wood });
+        /****************テスト用 **************/
 
     }
 
+    /// <summary>
+    /// インベントリに空きがあることを確認
+    /// </summary>
+    /// <returns></returns>
     public InventorySlot GetEmptyInventorySlot()
     {
-        foreach (InventorySlot inventorySlot in inventorySlotArray)
+        foreach (InventorySlot inventorySlot in _inventorySlotArray)
         {
             if (inventorySlot.IsEmpty())
             {
                 return inventorySlot;
             }
         }
-        Debug.LogError("Cannot find an empty InventorySlot!");
+        Debug.LogError("インベントリに空きがない");
         return null;
     }
 
     public InventorySlot GetInventorySlotWithItem(Item item)
     {
-        foreach (InventorySlot inventorySlot in inventorySlotArray)
+        foreach (InventorySlot inventorySlot in _inventorySlotArray)
         {
             if (inventorySlot.GetItem() == item)
             {
                 return inventorySlot;
             }
         }
-        Debug.LogError("Cannot find Item " + item + " in a InventorySlot!");
+        Debug.LogError("アイテム： " + item + "がインベントリに無い");
         return null;
     }
 
     public void AddItem(Item item)
     {
-        itemList.Add(item);
+        _itemList.Add(item);
         item.SetItemHolder(this);
         GetEmptyInventorySlot().SetItem(item);
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    /// <summary>
+    /// アイテムを追加、既存アイテムであれば数を増やす
+    /// </summary>
+    /// <param name="item">選択したアイテム</param>
     public void AddItemMergeAmount(Item item)
     {
-        // アイテムを追加、既存アイテムであれば数を増やす
         if (item.IsStackable())
         {
             bool itemAlreadyInInventory = false;
-            foreach (Item inventoryItem in itemList)
+            foreach (Item inventoryItem in _itemList)
             {
                 if (inventoryItem.itemScriptableObject == item.itemScriptableObject)
                 {
@@ -73,14 +81,14 @@ public class Inventory : IItemHolder
             }
             if (!itemAlreadyInInventory)
             {
-                itemList.Add(item);
+                _itemList.Add(item);
                 item.SetItemHolder(this);
                 GetEmptyInventorySlot().SetItem(item);
             }
         }
         else
         {
-            itemList.Add(item);
+            _itemList.Add(item);
             item.SetItemHolder(this);
             GetEmptyInventorySlot().SetItem(item);
         }
@@ -90,7 +98,7 @@ public class Inventory : IItemHolder
     public void RemoveItem(Item item)
     {
         GetInventorySlotWithItem(item).RemoveItem();
-        itemList.Remove(item);
+        _itemList.Remove(item);
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
@@ -105,7 +113,7 @@ public class Inventory : IItemHolder
         if (item.IsStackable())
         {
             Item itemInInventory = null;
-            foreach (Item inventoryItem in itemList)
+            foreach (Item inventoryItem in _itemList)
             {
                 if (inventoryItem.itemScriptableObject == item.itemScriptableObject)
                 {
@@ -116,13 +124,13 @@ public class Inventory : IItemHolder
             if (itemInInventory != null && itemInInventory.amount <= 0)
             {
                 GetInventorySlotWithItem(itemInInventory).RemoveItem();
-                itemList.Remove(itemInInventory);
+                _itemList.Remove(itemInInventory);
             }
         }
         else
         {
             GetInventorySlotWithItem(item).RemoveItem();
-            itemList.Remove(item);
+            _itemList.Remove(item);
         }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -130,7 +138,7 @@ public class Inventory : IItemHolder
     public void AddItem(Item item, InventorySlot inventorySlot)
     {
         // 特定のスロットにアイテムを追加
-        itemList.Add(item);
+        _itemList.Add(item);
         item.SetItemHolder(this);
         inventorySlot.SetItem(item);
 
@@ -139,17 +147,17 @@ public class Inventory : IItemHolder
 
     public void UseItem(Item item)
     {
-        useItemAction(item);
+        _useItemAction(item);
     }
 
     public List<Item> GetItemList()
     {
-        return itemList;
+        return _itemList;
     }
 
     public InventorySlot[] GetInventorySlotArray()
     {
-        return inventorySlotArray;
+        return _inventorySlotArray;
     }
 
     public bool CanAddItem()

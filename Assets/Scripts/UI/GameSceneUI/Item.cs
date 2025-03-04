@@ -12,7 +12,9 @@ public class Item
     /*----------------------------------------------------↓中西作業↓----------------------------------------------------*/
 
     public ItemScriptableObject itemScriptableObject;
-    //public ItemType itemType; // *****本番は消す****
+    /*********↓テスト用↓**********/
+    public ItemType itemType;
+    /*********↑テスト用↑**********/
     public int amount = 1;
     private IItemHolder itemHolder;
 
@@ -50,11 +52,15 @@ public class Item
     {
         if (itemHolder != null)
         {
-            // Remove from current Item Holder
+            // ホルダーから削除
             itemHolder.RemoveItem(this);
         }
     }
 
+    /// <summary>
+    /// アイテム移動
+    /// </summary>
+    /// <param name="newItemHolder"></param>
     public void MoveToAnotherItemHolder(IItemHolder newItemHolder)
     {
         RemoveFromItemHolder();
