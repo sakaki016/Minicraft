@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9f7c53c5683d5448b176587f7e7be25, type: 3}
-  m_Name: Sword_Rock
+  m_Name: Ax_Rock
   m_EditorClassIdentifier: 
-  itemName: Sword_Wood
-  itemSprite: {fileID: 0}
+  itemName: Ax_Rock
+  itemSprite: {fileID: -162797438, guid: 3066e2beeef2664409d0fa1f15573b98, type: 3}

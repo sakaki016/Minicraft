@@ -17,6 +17,25 @@ public class Item
     public int amount = 1;
     private IItemHolder itemHolder;
 
+    public enum ItemType
+    {
+        None,
+        Sword,
+        //HealthPotion,
+        Wood,
+        Rock,
+        Dirt,
+        Leaf,
+        Stick,
+        Sword_Wood,
+        Sword_Rock,
+        Ax_Wood,
+        Ax_Rock,
+        PickeAx_Wood,
+        PickeAx_Rock,
+        Shovel_Rock,
+        Shovel_Wood,
+    }
 
     public void SetItemHolder(IItemHolder itemHolder)
     {
@@ -56,33 +75,17 @@ public class Item
         switch (itemType)
         {
             default:
+            case ItemType.Stick: return ItemAssets.Instance.s_Stick;
             case ItemType.Rock: return ItemAssets.Instance.s_Rock;
-
             case ItemType.Wood: return ItemAssets.Instance.s_Wood;
         }
     }
 
-    //public Color GetColor()
-    //{
-    //    return Color.white;// GetColor(itemType);
-    //}
 
-    //public static Color GetColor(ItemType itemType)
-    //{
-    //    switch (itemType)
-    //    {
-    //        default:
-    //        case ItemType.Sword: return new Color(1, 1, 1);
-    //        case ItemType.HealthPotion: return new Color(1, 0, 0);
-    //        case ItemType.ManaPotion: return new Color(0, 0, 1);
-    //        case ItemType.Coin: return new Color(1, 1, 0);
-    //        case ItemType.Medkit: return new Color(1, 0, 1);
-    //    }
-    //}
-
+    //スタックできるか
     public bool IsStackable()
     {
-        return true; // IsStackable(itemType);
+        return true;
     }
 
     public static bool IsStackable(ItemType itemType)
@@ -92,20 +95,19 @@ public class Item
             default:
             case ItemType.Wood:
             case ItemType.Rock:
+            case ItemType.Dirt:
+            case ItemType.Leaf:
                 return true;
+            case ItemType.Stick:
             case ItemType.Sword_Wood:
             case ItemType.Sword_Rock:
+            case ItemType.Ax_Wood:
+            case ItemType.Ax_Rock:
+            case ItemType.PickeAx_Wood:
+            case ItemType.PickeAx_Rock:
+            case ItemType.Shovel_Rock:
+            case ItemType.Shovel_Wood:
                 return false;
-        }
-    }
-
-    public static int GetCost(ItemType itemType)
-    {
-        switch (itemType)
-        {
-            default:
-            case ItemType.Sword_Wood: return 0;
-            case ItemType.Sword_Rock: return 150;
         }
     }
 

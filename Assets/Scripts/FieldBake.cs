@@ -14,10 +14,8 @@ public class FieldBake : MonoBehaviour
     void Start()
     {
         Build();
-        Debug.Log("初期ビルド");
         UpdateLoop(this.GetCancellationTokenOnDestroy()).Forget();
     }
-
     async UniTaskVoid UpdateLoop(CancellationToken ct = default)
     {
         while (true)
@@ -30,7 +28,7 @@ public class FieldBake : MonoBehaviour
     public void Build()
     {
         surface.BuildNavMesh();
-        Debug.Log("再ビルド");
+        Debug.Log("ビルド");
     }
 
 }
