@@ -39,88 +39,88 @@ public class Item
         Shovel_Wood,
     }
 
-    public void SetItemHolder(IItemHolder itemHolder)
-    {
-        this.itemHolder = itemHolder;
-    }
+    //public void SetItemHolder(IItemHolder itemHolder)
+    //{
+    //    this.itemHolder = itemHolder;
+    //}
 
-    public IItemHolder GetItemHolder()
-    {
-        return itemHolder;
-    }
+    //public IItemHolder GetItemHolder()
+    //{
+    //    return itemHolder;
+    //}
 
-    public void RemoveFromItemHolder()
-    {
-        if (itemHolder != null)
-        {
-            // ホルダーから削除
-            itemHolder.RemoveItem(this);
-        }
-    }
+    //public void RemoveFromItemHolder()
+    //{
+    //    if (itemHolder != null)
+    //    {
+    //        // ホルダーから削除
+    //        itemHolder.RemoveItem(this);
+    //    }
+    //}
 
-    /// <summary>
-    /// アイテム移動
-    /// </summary>
-    /// <param name="newItemHolder"></param>
-    public void MoveToAnotherItemHolder(IItemHolder newItemHolder)
-    {
-        RemoveFromItemHolder();
-        // Add to new Item Holder
-        newItemHolder.AddItem(this);
-    }
-
-
-
-    public Sprite GetSprite()
-    {
-        return itemScriptableObject.itemSprite;
-    }
-
-    public static Sprite GetSprite(ItemType itemType)
-    {
-        switch (itemType)
-        {
-            default:
-            case ItemType.Stick: return ItemAssets.Instance.s_Stick;
-            case ItemType.Rock: return ItemAssets.Instance.s_Rock;
-            case ItemType.Wood: return ItemAssets.Instance.s_Wood;
-        }
-    }
+    ///// <summary>
+    ///// アイテム移動
+    ///// </summary>
+    ///// <param name="newItemHolder"></param>
+    //public void MoveToAnotherItemHolder(IItemHolder newItemHolder)
+    //{
+    //    RemoveFromItemHolder();
+    //    // Add to new Item Holder
+    //    newItemHolder.AddItem(this);
+    //}
 
 
-    //スタックできるか
-    public bool IsStackable()
-    {
-        return true;
-    }
 
-    public static bool IsStackable(ItemType itemType)
-    {
-        switch (itemType)
-        {
-            default:
-            case ItemType.Wood:
-            case ItemType.Rock:
-            case ItemType.Dirt:
-            case ItemType.Leaf:
-                return true; // ↑スタックできる
-            case ItemType.Stick:
-            case ItemType.Sword_Wood:
-            case ItemType.Sword_Rock:
-            case ItemType.Ax_Wood:
-            case ItemType.Ax_Rock:
-            case ItemType.PickeAx_Wood:
-            case ItemType.PickeAx_Rock:
-            case ItemType.Shovel_Rock:
-            case ItemType.Shovel_Wood:
-                return false; // ↑スタックできない
-        }
-    }
+    //public Sprite GetSprite()
+    //{
+    //    return itemScriptableObject.itemSprite;
+    //}
 
-    public override string ToString()
-    {
-        return itemScriptableObject.itemName;
-    }
+    //public static Sprite GetSprite(ItemType itemType)
+    //{
+    //    switch (itemType)
+    //    {
+    //        default:
+    //        case ItemType.Stick: return ItemAssets.Instance.s_Stick;
+    //        case ItemType.Rock: return ItemAssets.Instance.s_Rock;
+    //        case ItemType.Wood: return ItemAssets.Instance.s_Wood;
+    //    }
+    //}
+
+
+    ////スタックできるか
+    //public bool IsStackable()
+    //{
+    //    return true;
+    //}
+
+    //public static bool IsStackable(ItemType itemType)
+    //{
+    //    switch (itemType)
+    //    {
+    //        default:
+    //        case ItemType.Wood:
+    //        case ItemType.Rock:
+    //        case ItemType.Dirt:
+    //        case ItemType.Leaf:
+    //            return true; // ↑スタックできる
+    //        case ItemType.Stick:
+    //        case ItemType.Sword_Wood:
+    //        case ItemType.Sword_Rock:
+    //        case ItemType.Ax_Wood:
+    //        case ItemType.Ax_Rock:
+    //        case ItemType.PickeAx_Wood:
+    //        case ItemType.PickeAx_Rock:
+    //        case ItemType.Shovel_Rock:
+    //        case ItemType.Shovel_Wood:
+    //            return false; // ↑スタックできない
+    //    }
+    //}
+
+    //public override string ToString()
+    //{
+    //    return itemScriptableObject.itemName;
+    //}
 
 
     //public CharacterEquipment.EquipSlot GetEquipSlot() //つかう？

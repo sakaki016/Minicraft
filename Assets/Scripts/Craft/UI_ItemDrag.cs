@@ -1,92 +1,92 @@
 
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+//using UnityEngine;
+//using UnityEngine.UI;
+//using TMPro;
 
 
-/*
- * 使うかわからないのでいったん据え置き
- */
+///*
+// * 使うかわからないのでいったん据え置き
+// */
 
-public class UI_ItemDrag : MonoBehaviour
-{
+//public class UI_ItemDrag : MonoBehaviour
+//{
 
-    public static UI_ItemDrag Instance { get; private set; }
+//    public static UI_ItemDrag Instance { get; private set; }
 
-    private Canvas canvas;
-    private RectTransform rectTransform;
-    private RectTransform parentRectTransform;
-    private CanvasGroup canvasGroup;
-    private Image image;
-    private Item item;
-    private TextMeshProUGUI amountText;
+//    private Canvas canvas;
+//    private RectTransform rectTransform;
+//    private RectTransform parentRectTransform;
+//    private CanvasGroup canvasGroup;
+//    private Image image;
+//    private Item item;
+//    private TextMeshProUGUI amountText;
 
-    private void Awake()
-    {
-        Instance = this;
+//    private void Awake()
+//    {
+//        Instance = this;
 
-        rectTransform = GetComponent<RectTransform>();
-        canvasGroup = GetComponent<CanvasGroup>();
-        canvas = GetComponentInParent<Canvas>();
-        image = transform.Find("image").GetComponent<Image>();
-        amountText = transform.Find("amountText").GetComponent<TextMeshProUGUI>();
-        parentRectTransform = transform.parent.GetComponent<RectTransform>();
+//        rectTransform = GetComponent<RectTransform>();
+//        canvasGroup = GetComponent<CanvasGroup>();
+//        canvas = GetComponentInParent<Canvas>();
+//        image = transform.Find("image").GetComponent<Image>();
+//        amountText = transform.Find("amountText").GetComponent<TextMeshProUGUI>();
+//        parentRectTransform = transform.parent.GetComponent<RectTransform>();
 
-        Hide();
-    }
+//        Hide();
+//    }
 
-    private void Update()
-    {
-        UpdatePosition();
-    }
+//    private void Update()
+//    {
+//        UpdatePosition();
+//    }
 
-    private void UpdatePosition()
-    {
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRectTransform, Input.mousePosition, null, out Vector2 localPoint);
-        transform.localPosition = localPoint;
-    }
+//    private void UpdatePosition()
+//    {
+//        RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRectTransform, Input.mousePosition, null, out Vector2 localPoint);
+//        transform.localPosition = localPoint;
+//    }
 
-    public Item GetItem()
-    {
-        return item;
-    }
+//    public Item GetItem()
+//    {
+//        return item;
+//    }
 
-    public void SetItem(Item item)
-    {
-        this.item = item;
-    }
+//    public void SetItem(Item item)
+//    {
+//        this.item = item;
+//    }
 
-    public void SetSprite(Sprite sprite)
-    {
-        image.sprite = sprite;
-    }
+//    public void SetSprite(Sprite sprite)
+//    {
+//        image.sprite = sprite;
+//    }
 
-    public void SetAmountText(int amount)
-    {
-        if (amount <= 1)
-        {
-            amountText.text = "";
-        }
-        else
-        {
-            // 2以上の場合
-            amountText.text = amount.ToString();
-        }
-    }
+//    public void SetAmountText(int amount)
+//    {
+//        if (amount <= 1)
+//        {
+//            amountText.text = "";
+//        }
+//        else
+//        {
+//            // 2以上の場合
+//            amountText.text = amount.ToString();
+//        }
+//    }
 
-    public void Hide()
-    {
-        gameObject.SetActive(false);
-    }
+//    public void Hide()
+//    {
+//        gameObject.SetActive(false);
+//    }
 
-    public void Show(Item item)
-    {
-        gameObject.SetActive(true);
+//    public void Show(Item item)
+//    {
+//        gameObject.SetActive(true);
 
-        SetItem(item);
-        SetSprite(item.GetSprite());
-        SetAmountText(item.amount);
-        UpdatePosition();
-    }
+//        SetItem(item);
+//        SetSprite(item.GetSprite());
+//        SetAmountText(item.amount);
+//        UpdatePosition();
+//    }
 
-}
+//}
