@@ -6,9 +6,9 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    public GameObject goal; //‚±‚ê‚ÉƒvƒŒƒCƒ„[‚ğŠi”[
+    GameObject goal; //‚±‚ê‚ÉƒvƒŒƒCƒ„[‚ğŠi”[
     public NavMeshAgent agent; //‡@“G‚ª©“®‚Å“®‚­‚½‚ß‚É•K—v
-    public float distance; //‡AƒvƒŒƒCƒ„[‚Æ“G‚Ì‹——£‚ğŠi”[‚·‚é•Ï”(distane=‹——£)
+    public float distance; //‡AƒvƒŒƒCƒ„[‚Æ“G‚Ì‹——£‚ğŠi”[‚·‚é•Ï”
 
     void Start()
     {
@@ -24,7 +24,7 @@ public class EnemyAI : MonoBehaviour
     //œpœj
     void nextGoal()
     {
-        var randomPos = new Vector3(UnityEngine.Random.Range(0, 40), 0, UnityEngine.Random.Range(0, 40));
+        var randomPos = new Vector3(UnityEngine.Random.Range(0, 30), 0, UnityEngine.Random.Range(0, 30));
         agent.destination = randomPos;
     }
 

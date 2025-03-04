@@ -12,7 +12,7 @@ public class Item
     /*----------------------------------------------------↓中西作業↓----------------------------------------------------*/
 
     public ItemScriptableObject itemScriptableObject;
-    //public ItemType itemType;
+    //public ItemType itemType; // *****本番は消す****
     public int amount = 1;
     private IItemHolder itemHolder;
 
@@ -96,7 +96,7 @@ public class Item
             case ItemType.Rock:
             case ItemType.Dirt:
             case ItemType.Leaf:
-                return true;
+                return true; // ↑スタックできる
             case ItemType.Stick:
             case ItemType.Sword_Wood:
             case ItemType.Sword_Rock:
@@ -106,7 +106,7 @@ public class Item
             case ItemType.PickeAx_Rock:
             case ItemType.Shovel_Rock:
             case ItemType.Shovel_Wood:
-                return false;
+                return false; // ↑スタックできない
         }
     }
 

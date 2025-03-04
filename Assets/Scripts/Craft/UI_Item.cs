@@ -78,8 +78,7 @@ public class UI_Item : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IE
         }
         else
         {
-            // More than 1
-            amountText.text = amount.ToString();
+            amountText.text = amount.ToString();Å@// 1à»è„Ç†ÇÈèÍçá
         }
     }
 
@@ -105,3 +104,4 @@ public class UI_Item : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IE
         throw new System.NotImplementedException();
     }
 }
+

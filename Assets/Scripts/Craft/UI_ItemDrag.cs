@@ -64,7 +64,7 @@ public class UI_ItemDrag : MonoBehaviour
         }
         else
         {
-            // More than 1
+            // 2à»è„ÇÃèÍçá
             amountText.text = amount.ToString();
         }
     }

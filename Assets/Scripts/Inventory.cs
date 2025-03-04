@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,12 +22,11 @@ public class Inventory : IItemHolder
             inventorySlotArray[i] = new InventorySlot(i);
         }
 
-        //AddItem(new Item { itemType = Item.ItemType.Wood, amount = 10 });
-        //AddItem(new Item { itemType = Item.ItemType.Planks, amount = 10 });
-        //AddItem(new Item { itemType = Item.ItemType.Diamond, amount = 10 });
-        //AddItem(new Item { itemType = Item.ItemType.Stick, amount = 10 });
+
+        //AddItem(new Item { itemType = Item.ItemType.Stick, amount = 10 }); //テスト用
+        //AddItem(new Item { itemType = Item.ItemType.Rock amount = 10 });
         //AddItem(new Item { itemType = Item.ItemType.Sword_Wood });
-        //AddItem(new Item { itemType = Item.ItemType.Sword_Diamond });
+
     }
 
     public InventorySlot GetEmptyInventorySlot()
@@ -67,7 +65,7 @@ public class Inventory : IItemHolder
 
     public void AddItemMergeAmount(Item item)
     {
-        // Adds an Item and increases amount if same ItemType already present
+        // アイテムを追加、既存アイテムであれば数を増やす
         if (item.IsStackable())
         {
             bool itemAlreadyInInventory = false;
@@ -102,13 +100,14 @@ public class Inventory : IItemHolder
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    //↓テスト用
     /*public void RemoveItemAmount(Item.ItemType itemType, int amount) {
         RemoveItemRemoveAmount(new Item { itemType = itemType, amount = amount });
     }*/
 
     public void RemoveItemRemoveAmount(Item item)
     {
-        // Removes item but tries to remove amount if possible
+        // アイテムを削除、複数ある場合は数を減らす
         if (item.IsStackable())
         {
             Item itemInInventory = null;
@@ -136,7 +135,7 @@ public class Inventory : IItemHolder
 
     public void AddItem(Item item, InventorySlot inventorySlot)
     {
-        // Add Item to a specific Inventory slot
+        // 特定のスロットにアイテムを追加
         itemList.Add(item);
         item.SetItemHolder(this);
         inventorySlot.SetItem(item);
@@ -165,9 +164,7 @@ public class Inventory : IItemHolder
     }
 
 
-    /*
-     * Represents a single Inventory Slot
-     * */
+
     public class InventorySlot
     {
 

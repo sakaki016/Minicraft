@@ -94,7 +94,7 @@ public class CraftingSystem : IItemHolder
     {
         if (item == outputItem)
         {
-            // Removed output item
+            // アウトプットにあるアイテムを削除
             ConsumeRecipeItems();
             CreateOutput();
             OnGridChanged?.Invoke(this, EventArgs.Empty);
@@ -108,7 +108,7 @@ public class CraftingSystem : IItemHolder
                 {
                     if (GetItem(x, y) == item)
                     {
-                        // Removed this one
+                        // これを削除
                         RemoveItem(x, y);
                     }
                 }
@@ -133,7 +133,7 @@ public class CraftingSystem : IItemHolder
                 {
                     if (recipeScriptableObject.GetItem(x, y) != null)
                     {
-                        // Recipe has Item in this position
+                        // レシピにおいて、アイテムがある
                         if (IsEmpty(x, y) || GetItem(x, y).itemScriptableObject != recipeScriptableObject.GetItem(x, y))
                         {
                             // Empty position or different itemType

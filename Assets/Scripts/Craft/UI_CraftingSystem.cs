@@ -33,8 +33,8 @@ public class UI_CraftingSystem : MonoBehaviour
         outputSlotTransform = transform.Find("OutputSlot");
 
 
-        //CreateItem(1, 2, new Item { itemType = Item.ItemType.Wood });
-        //CreateItemOutput(new Item { itemType = Item.ItemType.Sword_Wood });
+        //CreateItem(1, 2, new Item { itemType = Item.ItemType.Wood }); // *****ñ{î‘ÇÕè¡Ç∑****
+        //CreateItemOutput(new Item { itemType = Item.ItemType.Sword_Wood }); // *****ñ{î‘ÇÕè¡Ç∑****
     }
 
     public void SetCraftingSystem(CraftingSystem craftingSystem)
@@ -63,7 +63,7 @@ public class UI_CraftingSystem : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        // Cycle through grid and spawn items
+        // Ç†ÇÍÇŒï\é¶
         for (int x = 0; x < CraftingSystem.GRID_SIZE; x++)
         {
             for (int y = 0; y < CraftingSystem.GRID_SIZE; y++)
