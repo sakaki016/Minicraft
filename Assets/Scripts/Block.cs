@@ -24,4 +24,9 @@ public class Block : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    // ブロックを壊したときにアイテムを取得
+    public Item GetItem()
+    {
+        return blockItem;
+    }
 }
