@@ -20,45 +20,42 @@ public class InventoryManager : MonoBehaviour
     public bool AddItem(Item newItem)
     {
         Debug.Log("AddItem 呼び出し: " + newItem.itemName);
+
+        // 既存アイテムを探し、スタックできる場合はスタック
         foreach (var item in items)
         {
-
-            if (item.itemName == newItem.itemName) // 既存アイテムがある場合
+            if (item.itemName == newItem.itemName) // 同じアイテムがあるかチェック
             {
                 if (item.amount < item.maxStack)
                 {
                     item.amount++;
                     Debug.Log("既存アイテム " + item.itemName + " のスタック増加: " + item.amount);
-                    // UIを更新
-                    FindObjectOfType<InventoryUI>().UpdateUI(); return true;
-                }
-                else
-                {
-                    continue; // スタックが満杯なら次へ
+                    FindObjectOfType<InventoryUI>().UpdateUI();
+                    return true; // アイテムを追加できたので終了
                 }
             }
-            if (items.Count < maxSlots)
-            {
-                items.Add(newItem);
-                Debug.Log("アイテム追加: " + newItem.itemName);
-
-                // UIを更新
-                FindObjectOfType<InventoryUI>().UpdateUI();
-
-                return true;
-            }
-            Debug.Log("インベントリ満杯！");
-            return false;
         }
 
-        // 新規アイテムを追加
+        // 既存のアイテムに追加できなかった場合、新規スロットに追加
         if (items.Count < maxSlots)
         {
-            newItem.amount = 1; // 初回は1個
-            items.Add(newItem);
+            Item newItemCopy = new Item
+            {
+                itemName = newItem.itemName,
+                icon = newItem.icon,
+                maxStack = newItem.maxStack,
+                amount = 1, // 新規追加なので1個
+                itemPrefab = newItem.itemPrefab
+            };
+
+            items.Add(newItemCopy);
+            Debug.Log("新規アイテム追加: " + newItem.itemName);
+            FindObjectOfType<InventoryUI>().UpdateUI();
             return true;
         }
-        return false; // インベントリが満杯
+
+        Debug.Log("インベントリ満杯！");
+        return false; // スロットが満杯で追加できなかった場合
     }
 
     public void RemoveItem(Item item)
