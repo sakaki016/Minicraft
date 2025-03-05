@@ -16,6 +16,7 @@ public enum ItemType //item‚ÌŽí—Þ‚¸‚¢‚¶’Ç‰Á
     Wood,
     Rock,
     Stick,
+    PickeAx,
     Ax_Wood,
     PickeAx_Wood,
     Shovel_Wood,
@@ -24,4 +25,5 @@ public enum ItemType //item‚ÌŽí—Þ‚¸‚¢‚¶’Ç‰Á
     PickeAx_Rock,
     Shovel_Rock,
     Sword_Rock,
+    Sword,
 }

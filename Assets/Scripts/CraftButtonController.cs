@@ -1,4 +1,6 @@
 
+using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +10,15 @@ public class CraftButtonController : MonoBehaviour
     [SerializeField] Button woodButton;
     [SerializeField] Button back;
     [SerializeField] GameObject stick;
-    [SerializeField] GameObject pickAxe;
+    [SerializeField] GameObject pickAx;
     [SerializeField] GameObject sword;
 
-    private Button _craftItem;
+    List<RecipeScriptableObject> recipeScriptableObjectList;
 
+    private Button _craftItem;
+    string material;
+
+  
     public void Start()
     {
         _craftItem = GetComponent<Button>();
@@ -26,7 +32,7 @@ public class CraftButtonController : MonoBehaviour
     {
         back.gameObject.SetActive(false);
         stick.gameObject.SetActive(false);
-        pickAxe.gameObject.SetActive(false);
+        pickAx.gameObject.SetActive(false);
         sword.gameObject.SetActive(false);
         rockButton.gameObject.SetActive(true);
         woodButton.gameObject.SetActive(true);
@@ -47,8 +53,9 @@ public class CraftButtonController : MonoBehaviour
     public void OnClickRock()
     {
         HideMaterial();
+        material = "Rock";
         back.gameObject.SetActive(true);
-        pickAxe.gameObject.SetActive(true);
+        pickAx.gameObject.SetActive(true);
         sword.gameObject.SetActive(true);
     }
 
@@ -58,15 +65,31 @@ public class CraftButtonController : MonoBehaviour
     public void OnClickWood()
     {
         HideMaterial();
+        material = "Wood";
         back.gameObject.SetActive(true);
         stick.gameObject.SetActive(true);
-        pickAxe.gameObject.SetActive(true);
+        pickAx.gameObject.SetActive(true);
         sword.gameObject.SetActive(true);
     }
 
-    public void CraftItem()
+    /// <summary>
+    /// 加工するアイテムの分岐
+    /// </summary>
+    // TODO 余裕があればもっと簡潔にする
+    public void SelectItemToCraft()
     {
-
+        //ボタンの名前から派生
+        switch (_craftItem.name)
+        {
+            case "Stick":
+                TestCraftScript.Instance.CreateStick();
+                break;
+            case "PickeAx":
+                //TestCraftScript.Instance.CreateAx(material);
+                break;
+            case "Sword":
+                TestCraftScript.Instance.CreateSword(material);
+                break;
+        }
     }
-
 }

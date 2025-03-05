@@ -23,11 +23,13 @@ public class Item
         None,
         Sword,
         //HealthPotion,
+        PickeAx,
         Wood,
         Rock,
         Dirt,
         Leaf,
         Stick,
+
         Sword_Wood,
         Sword_Rock,
         Ax_Wood,
