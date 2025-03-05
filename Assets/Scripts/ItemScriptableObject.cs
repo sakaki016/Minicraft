@@ -14,8 +14,10 @@ public class ItemScriptableObject : ScriptableObject
 
 public enum ItemType //item‚ÌŽí—Þ‚¸‚¢‚¶’Ç‰Á
 {
+    None,
     Wood,
     Rock,
+    Stick,
     Sword_Wood,
     Sword_Rock
 }

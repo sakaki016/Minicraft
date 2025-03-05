@@ -122,3 +122,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 5
   number: 1
+  blockItem:
+    itemName: Wood
+    icon: {fileID: 1591582843, guid: 95364e42d0002d146b83fe07d892ae33, type: 3}
+    maxStack: 64
+    count: 1
+    itemPrefab: {fileID: 1318158415196052724, guid: fdeaabc05dab2794f9dfef36db942f66, type: 3}
+    itemScriptableObject: {fileID: 11400000, guid: 2bfe91274f588d84597b77045bd5ed22, type: 2}
+    amount: 1

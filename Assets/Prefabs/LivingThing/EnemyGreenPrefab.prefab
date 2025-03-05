@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 8588095920404307299}
   - component: {fileID: 3593625106569663598}
   - component: {fileID: 5134598430397341759}
-  - component: {fileID: 3671461519997640395}
   - component: {fileID: 3525397277518939829}
+  - component: {fileID: 4265840518259107382}
   m_Layer: 0
   m_Name: EnemyGreenPrefab
   m_TagString: Enemy
@@ -151,21 +151,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 3
---- !u!114 &3671461519997640395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4571268983314254808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51b09a600b1cd6b47a6af5a2872a9587, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goal: {fileID: 141526593363601456, guid: fa5f99bc7aaaf6c489653a3e1725f075, type: 3}
-  agent: {fileID: 3525397277518939829}
-  distance: 1
 --- !u!195 &3525397277518939829
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -188,3 +173,18 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4265840518259107382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4571268983314254808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51b09a600b1cd6b47a6af5a2872a9587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goal: {fileID: 4571268983314254808}
+  agent: {fileID: -6269176905657933120, guid: 0a08fd9eb4447be4fae5f7143329f01b, type: 3}
+  distance: 1

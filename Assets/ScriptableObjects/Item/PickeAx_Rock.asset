@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9f7c53c5683d5448b176587f7e7be25, type: 3}
-  m_Name: Rock
+  m_Name: PickeAx_Rock
   m_EditorClassIdentifier: 
-  itemName: Rock
-  itemSprite: {fileID: 31403309, guid: cbc01684d087b68459fb2289a721b576, type: 3}
-  itemType: 1
+  itemName: PickeAxe_Rock
+  itemSprite: {fileID: 1838311178, guid: 7c76bb9853eb827429f64c3a2152afd2, type: 3}

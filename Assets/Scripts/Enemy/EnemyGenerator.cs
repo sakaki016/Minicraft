@@ -17,7 +17,6 @@ public class EnemyGenerator : MonoBehaviour
     //Œo‰ßŽžŠÔ
     private float time = 0f;
 
-
     void Update()
     {
         //ŽžŠÔŒv‘ª
