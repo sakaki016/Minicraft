@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51b09a600b1cd6b47a6af5a2872a9587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goal: {fileID: 141526593363601456, guid: fa5f99bc7aaaf6c489653a3e1725f075, type: 3}
+  goal: {fileID: 9026118856230767595, guid: fa5f99bc7aaaf6c489653a3e1725f075, type: 3}
   agent: {fileID: -8765969607103123107}
   distance: 1
 --- !u!195 &-8765969607103123107
