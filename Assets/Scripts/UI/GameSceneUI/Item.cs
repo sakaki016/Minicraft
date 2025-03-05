@@ -17,7 +17,7 @@ public class Item
     public ItemType itemType;
     /*********↑テスト用↑**********/
     public int amount = 1;
-    private IItemHolder itemHolder;
+    //private IItemHolder itemHolder;
 
     public enum ItemType
     {
