@@ -6,30 +6,25 @@ public class CraftButtonController : MonoBehaviour
 {
     [SerializeField] Button rockButton;
     [SerializeField] Button woodButton;
+    [SerializeField] Button back;
     [SerializeField] GameObject stick;
     [SerializeField] GameObject pickAxe;
     [SerializeField] GameObject sword;
 
-    private Button _button;
-
+    private Button _craftItem;
 
     public void Start()
     {
-        _button = GetComponent<Button>();
+        _craftItem = GetComponent<Button>();
         Init();
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            Debug.Log("初期化");
-            Init();
-        }
-    }
-
+    /// <summary>
+    /// 選択画面を初期化
+    /// </summary>
     public void Init()
     {
+        back.gameObject.SetActive(false);
         stick.gameObject.SetActive(false);
         pickAxe.gameObject.SetActive(false);
         sword.gameObject.SetActive(false);
@@ -37,25 +32,41 @@ public class CraftButtonController : MonoBehaviour
         woodButton.gameObject.SetActive(true);
     }
 
-    public void OnClick()
+    /// <summary>
+    /// 一番上の階層、素材選択ボタンを隠す
+    /// </summary>
+    public void HideMaterial()
     {
-        Debug.Log("おされたよ");
         rockButton.gameObject.SetActive(false);
         woodButton.gameObject.SetActive(false);
-        if (_button.tag == "RockButton")
-        {
-            pickAxe.gameObject.SetActive(true);
-            sword.gameObject.SetActive(true);
-
-        }
-        else if (_button.tag == "WoodButton")
-        {
-            stick.gameObject.SetActive(true);
-            pickAxe.gameObject.SetActive(true);
-            sword.gameObject.SetActive(true);
-        }
     }
 
+    /// <summary>
+    /// 石を選択
+    /// </summary>
+    public void OnClickRock()
+    {
+        HideMaterial();
+        back.gameObject.SetActive(true);
+        pickAxe.gameObject.SetActive(true);
+        sword.gameObject.SetActive(true);
+    }
 
+    /// <summary>
+    /// 木を選択
+    /// </summary>
+    public void OnClickWood()
+    {
+        HideMaterial();
+        back.gameObject.SetActive(true);
+        stick.gameObject.SetActive(true);
+        pickAxe.gameObject.SetActive(true);
+        sword.gameObject.SetActive(true);
+    }
+
+    public void CraftItem()
+    {
+
+    }
 
 }

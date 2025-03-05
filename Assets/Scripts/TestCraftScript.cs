@@ -4,15 +4,24 @@ using UnityEngine;
 public class TestCraftScript : MonoBehaviour
 {
     [SerializeField] GameObject[] Slots;
+    [SerializeField] GameObject stick;
+    [SerializeField] GameObject pickAxe;
+    [SerializeField] GameObject sword;
 
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
+
+    void CreateStick()
+    {
+
+    }
+
+
 }

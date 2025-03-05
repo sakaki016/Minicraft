@@ -6,8 +6,6 @@ TagManager:
   tags:
   - Enemy
   - Block
-  - WoodButton
-  - StoneButton
   layers:
   - Default
   - TransparentFX
