@@ -15,6 +15,7 @@ public class ArmController : MonoBehaviour
 
     private void Update()
     {
+        //左クリックの動作
         if (Input.GetMouseButtonDown(0) && _isSeqKill)
         {
             sequence = DOTween.Sequence();
@@ -35,6 +36,7 @@ public class ArmController : MonoBehaviour
                 _isSeqKill = true;
             });
         }
+        //右クリックの動作
         if (Input.GetMouseButtonDown(1) && _isSeqKill)
         {
             sequence = DOTween.Sequence();
