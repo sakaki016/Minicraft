@@ -6,6 +6,7 @@ public class Slot : MonoBehaviour
 {
     public Image itemImage; // アイテムの画像
     public TextMeshProUGUI itemCountText; // アイテムの数を表示するテキスト
+    private Item storedItem; // スロットに保存されているアイテム
 
     void Awake()
     {
@@ -18,7 +19,7 @@ public class Slot : MonoBehaviour
         if (itemCountText != null) itemCountText.text = "";
     }
 
-    // アイテムをセットする関数
+    // アイテムをスロットに設定する（Sprite と 数量）
     public void SetItem(Sprite icon, int count)
     {
         if (itemImage != null)
@@ -32,10 +33,25 @@ public class Slot : MonoBehaviour
             itemCountText.text = (count > 1) ? count.ToString() : "";
         }
     }
+    // アイテムをセットする関数（Itemクラスを直接扱うように変更）
+    public void SetItem(Item item)
+    {
+        storedItem = item; // storedItem を設定
+        if (item != null)
+        {
+            SetItem(item.icon, item.amount); // 既存の SetItem を使う
+        }
+        else
+        {
+            ClearSlot();
+        }
+    }
+
 
     // スロットを空にする関数
     public void ClearSlot()
     {
+        storedItem = null;
         if (itemImage != null)
         {
             itemImage.sprite = null;
@@ -46,5 +62,11 @@ public class Slot : MonoBehaviour
         {
             itemCountText.text = "";
         }
+    }
+
+    // スロットのアイテムを取得する関数
+    public Item GetItem()
+    {
+        return storedItem;
     }
 }

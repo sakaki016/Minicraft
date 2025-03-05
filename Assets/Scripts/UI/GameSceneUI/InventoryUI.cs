@@ -5,8 +5,10 @@ using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] GameObject inventoryPanel;
-    [SerializeField] Transform slotParent; // スロットの親オブジェクト
-    [SerializeField] GameObject slotPrefab; // スロットのプレハブ
+    [SerializeField] Transform inventorySlotParent; // スロットの親オブジェクト
+    [SerializeField] GameObject inventorySlotPrefab; // スロットのプレハブ
+    [SerializeField] Transform hotbarParent; // ホットバーの親オブジェクト
+    [SerializeField] GameObject hotbarSlotPrefab; // ホットバー用のスロットプレハブ
     private InventoryManager inventory;
     [SerializeField] GameObject backgroundPanel;
 
@@ -48,14 +50,14 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateUI()
     {
-        if (slotParent == null)
+        if (inventorySlotParent == null)
         {
             Debug.LogError("slotParent が設定されていません！");
             return;
         }
 
         // スロットを取得（slotParent の直接の子にある Slot スクリプトがアタッチされたオブジェクトのみ）
-        Slot[] slots = slotParent.GetComponentsInChildren<Slot>();
+        Slot[] slots = inventorySlotParent.GetComponentsInChildren<Slot>();
 
         if (slots.Length < 45)
         {
@@ -107,6 +109,31 @@ public class InventoryUI : MonoBehaviour
 
                 text.text = (itemCount > 1) ? itemCount.ToString() : ""; // 1個のときは非表示
             }
+        }
+
+        // インベントリ更新（既存の処理）
+        Slot[] inventorySlots = inventorySlotParent.GetComponentsInChildren<Slot>();
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            inventorySlots[i].ClearSlot();
+        }
+
+        for (int i = 0; i < Mathf.Min(inventory.items.Count, inventorySlots.Length); i++)
+        {
+            inventorySlots[i].SetItem(inventory.items[i].icon, inventory.items[i].amount);
+        }
+
+        // ホットバー更新
+        Slot[] hotbarSlots = hotbarParent.GetComponentsInChildren<Slot>();
+        for (int i = 0; i < hotbarSlots.Length; i++)
+        {
+            hotbarSlots[i].ClearSlot();
+        }
+
+        for (int i = 0; i < Mathf.Min(inventory.hotbarSlots, inventory.items.Count); i++)
+        {
+            hotbarSlots[i].SetItem(inventory.items[i].icon, inventory.items[i].amount);
+            hotbarSlots[i].SetItem(inventory.items[i]); // アイテム情報を正しく設定
         }
     }
 
