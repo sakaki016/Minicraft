@@ -11,13 +11,17 @@ public class PlayerAction : MonoBehaviour
 {
     [SerializeField] GameObject[] blocks;
     [SerializeField] GameObject[] enemys;
+    [SerializeField] GameObject arm;
     List<int> myItemList = new List<int>();
     [SerializeField] InventoryManager inventoryManager; // インベントリを参照
     [SerializeField] InventoryUI inventoryUI; // インベントリを参照
     Block block;
     Enemy enemy;
+    ArmController armController;
     int blockHp;
     int count = 0;
+    const float leftDistance = 5.0f;
+    const float rightDistance = 7.0f;
 
     [SerializeField] Transform playerCamera;
     [SerializeField] float placeDistance = 5.0f;
@@ -34,9 +38,10 @@ public class PlayerAction : MonoBehaviour
         displayCenter = new Vector2(Screen.width / 2, Screen.height / 2);
         inventoryManager = FindObjectOfType<InventoryManager>(); // シーン内のInventoryManagerを取得
         hotbarManager = FindObjectOfType<HotbarManager>();
+        armController = arm.gameObject.GetComponent<ArmController>();
     }
 
-        void Update()
+    void Update()
     {
         //ターゲットの座標を取得
         Ray ray = Camera.main.ScreenPointToRay(displayCenter);
@@ -44,12 +49,12 @@ public class PlayerAction : MonoBehaviour
 
 
         //距離が5以内のオブジェクトが対象
-        if (Physics.Raycast(ray, out hit, 5.0f))
+        if (Physics.Raycast(ray, out hit, leftDistance))
         {
             if (hit.collider.CompareTag("Enemy"))
             {
                 enemy = hit.collider.gameObject.GetComponent<Enemy>();
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && armController.IsMoving())
                 {
                     enemy.Hp -= 2;
                     Debug.Log("eneHp=" + enemy.Hp);
@@ -67,7 +72,7 @@ public class PlayerAction : MonoBehaviour
                     blockHp = block.Hp;
                     count++;
                 }
-                if (Input.GetMouseButton(0))
+                if (Input.GetMouseButton(0) && armController.IsMoving())
                 {
                     blockHp--;
                     if (blockHp <= 0)
@@ -100,12 +105,12 @@ public class PlayerAction : MonoBehaviour
                 }
             }
         }
-        else if (Physics.Raycast(ray, out hit, 5.1f))
+        else if (Physics.Raycast(ray, out hit, leftDistance + 0.1f))
         {
             count = 0;
         }
         //ブロックを置く機能
-        if (Physics.Raycast(ray, out hit, 7.0f))
+        if (Physics.Raycast(ray, out hit, rightDistance))
         {
             //// ↓ 生成位置の変数の値を「ブロックの向き + ブロックの位置」
             //pos = hit.normal + hit.collider.transform.position;
@@ -115,7 +120,8 @@ public class PlayerAction : MonoBehaviour
             //    Instantiate(blocks[1], pos, Quaternion.identity);
             //}
 
-            if (Input.GetMouseButtonDown(1)) // 右クリックでブロック設置
+             // 右クリックでブロック設置
+            if (Input.GetMouseButtonDown(1) && armController.IsMoving())
             {
                 Debug.Log("右クリックされた！");
                 PlaceBlock();

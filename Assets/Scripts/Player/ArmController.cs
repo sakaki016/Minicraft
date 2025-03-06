@@ -6,7 +6,10 @@ using UnityEngine;
 public class ArmController : MonoBehaviour
 {
     Sequence sequence;
+    //sequenceが動いているか
     private bool _isSeqKill = false;
+    //手は動いているか
+    private bool _isMove = false;
 
     private void Start()
     {
@@ -27,6 +30,7 @@ public class ArmController : MonoBehaviour
 
             sequence.Play().SetLoops(-1, LoopType.Restart);
             _isSeqKill = false;
+            _isMove = true;
         }
         if (Input.GetMouseButtonUp(0) && !_isSeqKill)
         {
@@ -34,6 +38,7 @@ public class ArmController : MonoBehaviour
             {
                 this.sequence.Kill();
                 _isSeqKill = true;
+                _isMove = false;
             });
         }
         //右クリックの動作
@@ -48,6 +53,7 @@ public class ArmController : MonoBehaviour
 
             sequence.Play();
             _isSeqKill = false;
+            _isMove = true;
         }
         if (Input.GetMouseButtonUp(1) && !_isSeqKill)
         {
@@ -55,7 +61,12 @@ public class ArmController : MonoBehaviour
             {
                 this.sequence.Kill();
                 _isSeqKill = true;
+                _isMove = false;
             });
         }
+    }
+    public bool IsMoving()
+    {
+        return _isMove;
     }
 }
