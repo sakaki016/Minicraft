@@ -15,7 +15,8 @@ public struct StartingItem
 public class InventoryManager : MonoBehaviour
 {
     public List<Item> items = new List<Item>();
-    public int maxSlots = 36; // スロット数（例えば9×4）
+    public int maxSlots = 45; // スロット数（例えば9×4）
+    public int hotbarSlots = 9; // ホットバーのスロット数
 
     public bool AddItem(Item newItem)
     {

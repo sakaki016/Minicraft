@@ -19,6 +19,11 @@ public class PlayerAction : MonoBehaviour
     int blockHp;
     int count = 0;
 
+    [SerializeField] Transform playerCamera;
+    [SerializeField] float placeDistance = 5.0f;
+    [SerializeField] HotbarManager hotbarManager;
+
+
     Vector2 displayCenter;
     // ブロックを設置する位置を一応リアルタイムで格納
     private Vector3 pos;
@@ -28,6 +33,7 @@ public class PlayerAction : MonoBehaviour
         // ↓ 画面中央の平面座標を取得する
         displayCenter = new Vector2(Screen.width / 2, Screen.height / 2);
         inventoryManager = FindObjectOfType<InventoryManager>(); // シーン内のInventoryManagerを取得
+        hotbarManager = FindObjectOfType<HotbarManager>();
     }
 
         void Update()
@@ -98,18 +104,50 @@ public class PlayerAction : MonoBehaviour
         {
             count = 0;
         }
-
+        //ブロックを置く機能
         if (Physics.Raycast(ray, out hit, 7.0f))
         {
-            // ↓ 生成位置の変数の値を「ブロックの向き + ブロックの位置」
-            pos = hit.normal + hit.collider.transform.position;
-            if (Input.GetMouseButtonDown(1))
+            //// ↓ 生成位置の変数の値を「ブロックの向き + ブロックの位置」
+            //pos = hit.normal + hit.collider.transform.position;
+            //if (Input.GetMouseButtonDown(1))
+            //{
+            //    //blocks[1]→myItemListに変更
+            //    Instantiate(blocks[1], pos, Quaternion.identity);
+            //}
+
+            if (Input.GetMouseButtonDown(1)) // 右クリックでブロック設置
             {
-                //blocks[1]→myItemListに変更
-                Instantiate(blocks[1], pos, Quaternion.identity);
+                Debug.Log("右クリックされた！");
+                PlaceBlock();
             }
         }
 
+    }
+
+    void PlaceBlock()
+    {
+        Ray ray = new Ray(playerCamera.position, playerCamera.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, placeDistance))
+        {
+            Vector3 placePosition = hit.point + hit.normal * 0.5f;
+            placePosition = new Vector3(Mathf.Round(placePosition.x), Mathf.Round(placePosition.y), Mathf.Round(placePosition.z));
+
+            // 選択中のアイテムを取得
+            Item selectedItem = hotbarManager.GetSelectedItem();
+            if (selectedItem == null)
+            {
+                Debug.Log("選択中のアイテムがありません");
+                return;
+            }
+
+            // ブロックアイテムの場合のみ設置
+            if (selectedItem.itemPrefab.CompareTag("Block"))
+            {
+                Instantiate(selectedItem.itemPrefab, placePosition, Quaternion.identity);
+                inventoryManager.RemoveItem(selectedItem);
+                inventoryUI.UpdateUI();
+            }
+        }
     }
 
 }

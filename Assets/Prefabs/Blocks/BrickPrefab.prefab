@@ -120,5 +120,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef18a7291851dd43a9fd768e4626ec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 10
+  hp: 10000
   number: 0
+  blockItem:
+    itemName: 
+    icon: {fileID: 0}
+    maxStack: 0
+    count: 0
+    itemPrefab: {fileID: 0}
+    itemScriptableObject: {fileID: 0}
+    amount: 1
