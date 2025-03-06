@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework.Constraints;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class CraftButtonController : MonoBehaviour
@@ -10,18 +11,19 @@ public class CraftButtonController : MonoBehaviour
     [SerializeField] Button woodButton;
     [SerializeField] Button back;
     [SerializeField] GameObject stick;
-    [SerializeField] GameObject pickAx;
-    [SerializeField] GameObject sword;
+    [SerializeField] GameObject wPickAx;
+    [SerializeField] GameObject wSword;
+    [SerializeField] GameObject rPickAx;
+    [SerializeField] GameObject rSword;
 
     List<RecipeScriptableObject> recipeScriptableObjectList;
 
-    private Button _craftItem;
-    string material;
+    private Button _selectedButton;
 
-  
+
     public void Start()
     {
-        _craftItem = GetComponent<Button>();
+        _selectedButton = GetComponent<Button>();
         Init();
     }
 
@@ -32,8 +34,10 @@ public class CraftButtonController : MonoBehaviour
     {
         back.gameObject.SetActive(false);
         stick.gameObject.SetActive(false);
-        pickAx.gameObject.SetActive(false);
-        sword.gameObject.SetActive(false);
+        wPickAx.gameObject.SetActive(false);
+        wSword.gameObject.SetActive(false);
+        rPickAx.gameObject.SetActive(false);
+        rSword.gameObject.SetActive(false);
         rockButton.gameObject.SetActive(true);
         woodButton.gameObject.SetActive(true);
     }
@@ -48,48 +52,52 @@ public class CraftButtonController : MonoBehaviour
     }
 
     /// <summary>
-    /// 石を選択
+    /// ボタンクリック
     /// </summary>
-    public void OnClickRock()
+    public void OnClick()
     {
         HideMaterial();
-        material = "Rock";
         back.gameObject.SetActive(true);
-        pickAx.gameObject.SetActive(true);
-        sword.gameObject.SetActive(true);
-    }
 
-    /// <summary>
-    /// 木を選択
-    /// </summary>
-    public void OnClickWood()
-    {
-        HideMaterial();
-        material = "Wood";
-        back.gameObject.SetActive(true);
-        stick.gameObject.SetActive(true);
-        pickAx.gameObject.SetActive(true);
-        sword.gameObject.SetActive(true);
-    }
-
-    /// <summary>
-    /// 加工するアイテムの分岐
-    /// </summary>
-    // TODO 余裕があればもっと簡潔にする
-    public void SelectItemToCraft()
-    {
-        //ボタンの名前から派生
-        switch (_craftItem.name)
+        switch (_selectedButton.name)
         {
+            //素材選択
+            case "Rock":
+                rPickAx.gameObject.SetActive(true);
+                rSword.gameObject.SetActive(true);
+                break;
+            case "Wood":
+                stick.gameObject.SetActive(true);
+                wPickAx.gameObject.SetActive(true);
+                wSword.gameObject.SetActive(true);
+                break;
+
+                //木を使ったアイテム
             case "Stick":
                 TestCraftScript.Instance.CreateStick();
                 break;
-            case "PickeAx":
-                //TestCraftScript.Instance.CreateAx(material);
+            case "WoodAx":
+                TestCraftScript.Instance.CreateAx("Wood");
                 break;
-            case "Sword":
-                TestCraftScript.Instance.CreateSword(material);
+            case "WoodPickeAx":
+                TestCraftScript.Instance.CreatePickeAx("Wood");
+                break;
+            case "WoodSword":
+                TestCraftScript.Instance.CreateSword("Wood");
+                break;
+
+                //石を使ったアイテム
+            case "RockAx":
+                TestCraftScript.Instance.CreateAx("Rock");
+                break;
+            case "RockPickeAx":
+                TestCraftScript.Instance.CreatePickeAx("Rock");
+                break;
+            case "RockSword":
+                TestCraftScript.Instance.CreateSword("Rock");
                 break;
         }
+
     }
+
 }

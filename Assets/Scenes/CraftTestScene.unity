@@ -255,6 +255,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28039738}
   m_CullTransparentMesh: 1
+--- !u!1 &72775657 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5546693360504081722, guid: f14d9d6c0956c1242ba598fe8438deb6, type: 3}
+  m_PrefabInstance: {fileID: 7894684673650567544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &74832641 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9161741305076273282, guid: f14d9d6c0956c1242ba598fe8438deb6, type: 3}
+  m_PrefabInstance: {fileID: 7894684673650567544}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &154250454
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -834,7 +844,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7737782785024628635, guid: 5c1f88208f709eb4a8674bb665b54f0e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -845,6 +855,11 @@ PrefabInstance:
       addedObject: {fileID: 1368794145}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c1f88208f709eb4a8674bb665b54f0e, type: 3}
+--- !u!1 &924769146 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4779842824709901569, guid: f14d9d6c0956c1242ba598fe8438deb6, type: 3}
+  m_PrefabInstance: {fileID: 7894684673650567544}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1332976702
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1122,6 +1137,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9150370575727415627, guid: b1e95ff8a94131d4fb0bd7dc30bbfff7, type: 3}
   m_PrefabInstance: {fileID: 1332976702}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1787728050 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2272828061411875536, guid: f14d9d6c0956c1242ba598fe8438deb6, type: 3}
+  m_PrefabInstance: {fileID: 7894684673650567544}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1927962872 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9126645515821099184, guid: c1cb3a0a11438d74794ebb870eebb0a2, type: 3}
@@ -1383,10 +1403,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_CraftingSlot
       objectReference: {fileID: 0}
-    - target: {fileID: 8762274853685257273, guid: f14d9d6c0956c1242ba598fe8438deb6, type: 3}
-      propertyPath: m_Sprite
+    - target: {fileID: 8709239944327381525, guid: f14d9d6c0956c1242ba598fe8438deb6, type: 3}
+      propertyPath: rSword
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 72775657}
+    - target: {fileID: 8709239944327381525, guid: f14d9d6c0956c1242ba598fe8438deb6, type: 3}
+      propertyPath: wSword
+      value: 
+      objectReference: {fileID: 74832641}
+    - target: {fileID: 8709239944327381525, guid: f14d9d6c0956c1242ba598fe8438deb6, type: 3}
+      propertyPath: rPickAx
+      value: 
+      objectReference: {fileID: 924769146}
+    - target: {fileID: 8709239944327381525, guid: f14d9d6c0956c1242ba598fe8438deb6, type: 3}
+      propertyPath: wPickAx
+      value: 
+      objectReference: {fileID: 1787728050}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
