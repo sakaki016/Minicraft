@@ -1,11 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Android.Gradle;
 using UnityEngine;
-using System;
-using Unity.VisualScripting;
-using static UnityEditor.Progress;
-using UnityEngine.UIElements;
 
 public class PlayerAction : MonoBehaviour
 {
