@@ -22,12 +22,6 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    void Awake()
-    {
-        Instance = this;
-
-    }
-
     public bool AddItem(Item newItem)
     {
         Debug.Log("AddItem åƒÇ—èoÇµ: " + newItem.itemName);
