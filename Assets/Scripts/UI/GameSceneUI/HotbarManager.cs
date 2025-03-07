@@ -4,23 +4,21 @@ using UnityEngine.UI;
 public class HotbarManager : MonoBehaviour
 {
     public Transform hotbarParent; // ホットバーの親オブジェクト
-    public Image selectionCursor; // カーソル用の Image
-    public int selectedSlotIndex = 0; // 選択中のスロット（最初は 0）
+    public Image selectionCursor;  // 選択カーソル用の Image
+    public int selectedSlotIndex = 0; // 選択中のスロット（初期は 0）
 
     private Slot[] hotbarSlots;
 
     void Start()
     {
-        // ホットバーのスロットを取得
+        // ホットバースロットを取得
         hotbarSlots = hotbarParent.GetComponentsInChildren<Slot>();
-
-        // 初期位置にカーソルをセット
         UpdateCursorPosition();
     }
 
     void Update()
     {
-        // 1〜9キーでスロットを選択
+        // 数字キー（1〜9）でスロット選択
         for (int i = 0; i < 9; i++)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
@@ -51,13 +49,13 @@ public class HotbarManager : MonoBehaviour
     void UpdateCursorPosition()
     {
         if (hotbarSlots.Length == 0) return;
-
-        // 選択中のスロットの位置にカーソルを移動
         selectionCursor.transform.position = hotbarSlots[selectedSlotIndex].transform.position;
     }
+
     public Item GetSelectedItem()
     {
-        Debug.Log("選択スロット: " + selectedSlotIndex);
+        // 最新のホットバースロット配列を取得（UI更新に合わせるため）
+        hotbarSlots = hotbarParent.GetComponentsInChildren<Slot>();
         if (selectedSlotIndex >= 0 && selectedSlotIndex < hotbarSlots.Length)
         {
             Item selectedItem = hotbarSlots[selectedSlotIndex].GetItem();
