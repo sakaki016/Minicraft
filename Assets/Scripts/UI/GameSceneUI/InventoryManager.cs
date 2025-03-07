@@ -2,20 +2,19 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*-------------------------↓中西作業↓-------------------------*/
-[System.Serializable]
-public struct StartingItem
-{
-    public ItemScriptableObject itemData;
-    public int amount;
-    public Vector2Int position; // Inventory position
-}
-
 
 public class InventoryManager : MonoBehaviour
 {
+    public static InventoryManager Instance { get; private set; }
+
     public List<Item> items = new List<Item>();
     public int maxSlots = 36; // スロット数（例えば9×4）
+
+    void Awake()
+    {
+        Instance = this;
+
+    }
 
     public bool AddItem(Item newItem)
     {

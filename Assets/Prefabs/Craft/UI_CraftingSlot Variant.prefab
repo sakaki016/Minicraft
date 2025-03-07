@@ -304,10 +304,10 @@ MonoBehaviour:
   woodButton: {fileID: 3664958065400001213}
   back: {fileID: 6406829421332255639}
   stick: {fileID: 3101997718821009619}
-  wPickAx: {fileID: 0}
-  wSword: {fileID: 0}
-  rPickAx: {fileID: 0}
-  rSword: {fileID: 0}
+  wPickAx: {fileID: 2272828061411875536}
+  wSword: {fileID: 9161741305076273282}
+  rPickAx: {fileID: 4779842824709901569}
+  rSword: {fileID: 5546693360504081722}
 --- !u!1 &1223627464275089791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1370,8 +1370,8 @@ MonoBehaviour:
   stick: {fileID: 3101997718821009619}
   wPickAx: {fileID: 2272828061411875536}
   wSword: {fileID: 9161741305076273282}
-  rPickAx: {fileID: 9161741305076273282}
-  rSword: {fileID: 9161741305076273282}
+  rPickAx: {fileID: 4779842824709901569}
+  rSword: {fileID: 5546693360504081722}
 --- !u!1 &5546693360504081722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,8 +1524,8 @@ MonoBehaviour:
   stick: {fileID: 3101997718821009619}
   wPickAx: {fileID: 2272828061411875536}
   wSword: {fileID: 9161741305076273282}
-  rPickAx: {fileID: 9161741305076273282}
-  rSword: {fileID: 9161741305076273282}
+  rPickAx: {fileID: 4779842824709901569}
+  rSword: {fileID: 5546693360504081722}
 --- !u!1 &5793394128947169659
 GameObject:
   m_ObjectHideFlags: 0
@@ -2401,8 +2401,8 @@ MonoBehaviour:
   stick: {fileID: 3101997718821009619}
   wPickAx: {fileID: 2272828061411875536}
   wSword: {fileID: 9161741305076273282}
-  rPickAx: {fileID: 9161741305076273282}
-  rSword: {fileID: 9161741305076273282}
+  rPickAx: {fileID: 4779842824709901569}
+  rSword: {fileID: 5546693360504081722}
 --- !u!1001 &1863726351948838439
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2553,12 +2553,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3852100799486959824, guid: fbec316ebdf56254ea30860c82b86294, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7414572593523391719}
-    - targetCorrespondingSourceObject: {fileID: 6970986987233724193, guid: fbec316ebdf56254ea30860c82b86294, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3324481226791309815}
-    - targetCorrespondingSourceObject: {fileID: 4087609727167144513, guid: fbec316ebdf56254ea30860c82b86294, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 409715462452396226}
     - targetCorrespondingSourceObject: {fileID: 4087609727167144513, guid: fbec316ebdf56254ea30860c82b86294, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7509572111295419808}
@@ -2627,19 +2621,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4087609727167144513, guid: fbec316ebdf56254ea30860c82b86294, type: 3}
   m_PrefabInstance: {fileID: 1863726351948838439}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &409715462452396226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2406983088833516646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfb06188ed42e7e40ad8a88a881a88c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemImage: {fileID: 0}
 --- !u!114 &7509572111295419808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2977,32 +2958,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &8746169169501630726 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6970986987233724193, guid: fbec316ebdf56254ea30860c82b86294, type: 3}
-  m_PrefabInstance: {fileID: 1863726351948838439}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3324481226791309815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8746169169501630726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9b6e9cc4ced9254c87785f14a9f8ff1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recipeScriptableObjectList: []
-  itemScriptableObjectList: []
-  item_02: {fileID: 2406983088833516646}
-  item_12: {fileID: 1810239843283007080}
-  item_22: {fileID: 2584961527955828370}
-  item_01: {fileID: 7290826979217707842}
-  item_11: {fileID: 5803280828637407404}
-  item_21: {fileID: 8047716091662770858}
-  item_00: {fileID: 5940002537608258820}
-  item_10: {fileID: 7816772483034905668}
-  item_20: {fileID: 8611041725015468569}
-  output: {fileID: 0}

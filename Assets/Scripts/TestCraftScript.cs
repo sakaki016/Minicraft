@@ -1,8 +1,7 @@
 
 using System;
 using System.Collections.Generic;
-using Unity.Android.Gradle;
-using Unity.Jobs;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -58,8 +57,14 @@ public class TestCraftScript : MonoBehaviour
 
     [SerializeField] GameObject output;
 
+    [SerializeField] Button craftButton;
+
+    [SerializeField] PlayerAction playerAction;
+
     private Sprite newSprite;
     private Image image;
+
+    private bool hasCraftItems = false;
 
     void Awake()
     {
@@ -67,12 +72,16 @@ public class TestCraftScript : MonoBehaviour
 
     }
 
-    void Start()
+    private void Update()
     {
-        if (image != null)
-        {
-            image = item_10.GetComponent<Image>();
-        }
+        //if (hasCraftItems) { 
+        craftButton.enabled = true;
+        //}
+        //else
+        //{
+        //    craftButton.enabled = false;
+        //}
+
     }
 
     /// <summary>
@@ -97,7 +106,7 @@ public class TestCraftScript : MonoBehaviour
 
     public List<String> CheckRecipe(int element)
     {
-        craftMaterials = null;
+        craftMaterials.Clear();
         if (recipeScriptableObjectList[element].item_02 != null) craftMaterials.Add(recipeScriptableObjectList[element].item_02.name);
         if (recipeScriptableObjectList[element].item_12 != null) craftMaterials.Add(recipeScriptableObjectList[element].item_12.name);
         if (recipeScriptableObjectList[element].item_22 != null) craftMaterials.Add(recipeScriptableObjectList[element].item_22.name);
@@ -114,7 +123,6 @@ public class TestCraftScript : MonoBehaviour
         return craftMaterials;
     }
 
-
     /// <summary>
     /// 棒を生産
     /// </summary>
@@ -123,12 +131,12 @@ public class TestCraftScript : MonoBehaviour
         Clear();
 
         List<string> recipes = CheckRecipe(4);
-        Debug.Log(string.Join(",", recipes));
 
-        //foreach (string recipe in recipes)
-        //{
-        //    Debug.Log(recipe);
-        //}
+        //レシピに必要なアイテムとその個数
+        foreach (var g in recipes.ToLookup(s => s))
+        {
+            Debug.Log(g.Key + ": " + g.Count());
+        }
 
 
         newSprite = itemScriptableObjectList[12].itemSprite;
@@ -137,6 +145,7 @@ public class TestCraftScript : MonoBehaviour
         item_11.GetComponent<Image>().sprite = newSprite;
 
         output.GetComponent<Image>().sprite = itemScriptableObjectList[9].itemSprite;
+
     }
 
     /// <summary>
@@ -151,34 +160,30 @@ public class TestCraftScript : MonoBehaviour
         {
             //木の場合
             item_12.GetComponent<Image>().sprite = itemScriptableObjectList[12].itemSprite;
+            item_11.GetComponent<Image>().sprite = itemScriptableObjectList[12].itemSprite;
             output.GetComponent<Image>().sprite = itemScriptableObjectList[11].itemSprite;
 
             List<string> recipes = CheckRecipe(8);
             Debug.Log(string.Join(",", recipes));
 
-            //foreach (string recipe in recipes)
-            //{
-            //    Debug.Log(recipe);
-            //}
+            CheckInventory(recipes);
 
         }
         else if (material.Equals("Rock"))
         {
             //石の場合
             item_12.GetComponent<Image>().sprite = itemScriptableObjectList[6].itemSprite;
+            item_11.GetComponent<Image>().sprite = itemScriptableObjectList[6].itemSprite;
             output.GetComponent<Image>().sprite = itemScriptableObjectList[10].itemSprite;
 
             List<string> recipes = CheckRecipe(3);
             Debug.Log(string.Join(",", recipes));
 
-            //foreach (string recipe in recipes)
-            //{
-            //    Debug.Log(recipe);
-            //}
+            CheckInventory(recipes);
         }
 
         item_10.GetComponent<Image>().sprite = newSprite;
-        item_11.GetComponent<Image>().sprite = newSprite;
+        
 
     }
 
@@ -201,10 +206,7 @@ public class TestCraftScript : MonoBehaviour
             List<string> recipes = CheckRecipe(5);
             Debug.Log(string.Join(",", recipes));
 
-            //foreach (string recipe in recipes)
-            //{
-            //    Debug.Log(recipe);
-            //}
+            CheckInventory(recipes);
 
         }
         else if (material.Equals("Rock"))
@@ -218,10 +220,7 @@ public class TestCraftScript : MonoBehaviour
             List<string> recipes = CheckRecipe(0);
             Debug.Log(string.Join(",", recipes));
 
-            //foreach (string recipe in recipes)
-            //{
-            //    Debug.Log(recipe);
-            //}
+            CheckInventory(recipes);
         }
 
         item_10.GetComponent<Image>().sprite = newSprite;
@@ -247,10 +246,7 @@ public class TestCraftScript : MonoBehaviour
             List<string> recipes = CheckRecipe(6);
             Debug.Log(string.Join(",", recipes));
 
-            //foreach (string recipe in recipes)
-            //{
-            //    Debug.Log(recipe);
-            //}
+            CheckInventory(recipes);
 
         }
         else if (material.Equals("Rock"))
@@ -264,14 +260,39 @@ public class TestCraftScript : MonoBehaviour
             List<string> recipes = CheckRecipe(1);
             Debug.Log(string.Join(",", recipes));
 
-            //foreach (string recipe in recipes)
-            //{
-            //    Debug.Log(recipe);
-            //}
+            CheckInventory(recipes);
         }
 
         item_10.GetComponent<Image>().sprite = newSprite;
         item_11.GetComponent<Image>().sprite = newSprite;
+
+    }
+
+    public void CheckInventory(List<string> requiredItems)
+    {
+        //インベントリ内のアイテム＋個数を取得
+        List<Item> inventoryItems = InventoryManager.Instance.items;
+
+        //レシピに必要なアイテムとその個数
+        foreach (var g in requiredItems.ToLookup(s => s))
+        {
+            string itemName = g.Key;
+            Debug.Log(g.Key + ": " + g.Count());
+        }
+    }
+
+
+    public bool ResumeCraft()
+    {
+        //インベントリ内のアイテム＋個数を取得
+       List<Item> inventoryItems = InventoryManager.Instance.items;
+
+        foreach (Item item in inventoryItems)
+        {
+            Debug.Log("インベントリ内のアイテム..."+ item.itemName + ": " + item.amount + "個");
+        }
+        return true;
+
     }
 }
 

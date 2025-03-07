@@ -1,8 +1,6 @@
 
 using System.Collections.Generic;
-using NUnit.Framework.Constraints;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class CraftButtonController : MonoBehaviour
@@ -51,6 +49,7 @@ public class CraftButtonController : MonoBehaviour
         woodButton.gameObject.SetActive(false);
     }
 
+
     /// <summary>
     /// ボタンクリック
     /// </summary>
@@ -72,7 +71,7 @@ public class CraftButtonController : MonoBehaviour
                 wSword.gameObject.SetActive(true);
                 break;
 
-                //木を使ったアイテム
+            //木を使ったアイテム
             case "Stick":
                 TestCraftScript.Instance.CreateStick();
                 break;
@@ -86,7 +85,7 @@ public class CraftButtonController : MonoBehaviour
                 TestCraftScript.Instance.CreateSword("Wood");
                 break;
 
-                //石を使ったアイテム
+            //石を使ったアイテム
             case "RockAx":
                 TestCraftScript.Instance.CreateAx("Rock");
                 break;

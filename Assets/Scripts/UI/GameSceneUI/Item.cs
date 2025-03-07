@@ -8,21 +8,17 @@ public class Item
     public int maxStack;
     public int count;
     public GameObject itemPrefab; // ゲーム内で配置する場合のプレハブ
-
+    public int amount = 1;
+    public ItemScriptableObject itemScriptableObject;
 
     /*----------------------------------------------------↓中西作業↓----------------------------------------------------*/
 
-    public ItemScriptableObject itemScriptableObject;
-    /*********↓テスト用↓**********/
-    public ItemType itemType;
-    /*********↑テスト用↑**********/
-    public int amount = 1;
+
 
     public enum ItemType
     {
         None,
         Sword,
-        //HealthPotion,
         PickeAx,
         Wood,
         Rock,
