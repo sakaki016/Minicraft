@@ -57,8 +57,6 @@ public class TestCraftScript : MonoBehaviour
 
     [SerializeField] GameObject output;
 
-    [SerializeField] Button craftButton;
-
     [SerializeField] PlayerAction playerAction;
 
     private Sprite newSprite;
@@ -74,13 +72,7 @@ public class TestCraftScript : MonoBehaviour
 
     private void Update()
     {
-        //if (hasCraftItems) { 
-        craftButton.enabled = true;
-        //}
-        //else
-        //{
-        //    craftButton.enabled = false;
-        //}
+
 
     }
 
