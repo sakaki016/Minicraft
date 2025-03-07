@@ -5,11 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item", menuName = "ScriptableObjects/Item", order = 1)]
 public class ItemScriptableObject : ScriptableObject
 {
-    //public Item.ItemType itemType;
     public string itemName;
     public Sprite itemSprite;
 
-    //public CharacterEquipment.EquipSlot equipSlot;Å@//Ç¬Ç©Ç§ÅH
 }
 
 public enum ItemType //itemÇÃéÌóﬁÇ∏Ç¢Ç∂í«â¡
@@ -18,6 +16,14 @@ public enum ItemType //itemÇÃéÌóﬁÇ∏Ç¢Ç∂í«â¡
     Wood,
     Rock,
     Stick,
+    PickeAx,
+    Ax_Wood,
+    PickeAx_Wood,
+    Shovel_Wood,
     Sword_Wood,
-    Sword_Rock
+    Ax_Rock,
+    PickeAx_Rock,
+    Shovel_Rock,
+    Sword_Rock,
+    Sword,
 }

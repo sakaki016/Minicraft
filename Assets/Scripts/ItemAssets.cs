@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemAssets : MonoBehaviour
@@ -20,4 +18,10 @@ public class ItemAssets : MonoBehaviour
     public Sprite s_Stick;
     public Sprite s_Sword_Wood;
     public Sprite s_Sword_Rock;
+    public Sprite s_Ax_Wood;
+    public Sprite s_Ax_Rock;
+    public Sprite s_PickeAx_Wood;
+    public Sprite s_PickeAx_Rock;
+    public Sprite s_Shovel_Wood;
+    public Sprite s_Shovel_Rock;
 }

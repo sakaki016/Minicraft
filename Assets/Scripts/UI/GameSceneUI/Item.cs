@@ -8,25 +8,24 @@ public class Item
     public int maxStack;
     public int count;
     public GameObject itemPrefab; // ゲーム内で配置する場合のプレハブ
-
+    public int amount = 1;
+    public ItemScriptableObject itemScriptableObject;
 
     /*----------------------------------------------------↓中西作業↓----------------------------------------------------*/
 
-    public ItemScriptableObject itemScriptableObject;
-    //public ItemType itemType;
-    public int amount = 1;
-    private IItemHolder itemHolder;
+
 
     public enum ItemType
     {
         None,
         Sword,
-        //HealthPotion,
+        PickeAx,
         Wood,
         Rock,
         Dirt,
         Leaf,
         Stick,
+
         Sword_Wood,
         Sword_Rock,
         Ax_Wood,
@@ -37,99 +36,7 @@ public class Item
         Shovel_Wood,
     }
 
-    public void SetItemHolder(IItemHolder itemHolder)
-    {
-        this.itemHolder = itemHolder;
-    }
-
-    public IItemHolder GetItemHolder()
-    {
-        return itemHolder;
-    }
-
-    public void RemoveFromItemHolder()
-    {
-        if (itemHolder != null)
-        {
-            // Remove from current Item Holder
-            itemHolder.RemoveItem(this);
-        }
-    }
-
-    public void MoveToAnotherItemHolder(IItemHolder newItemHolder)
-    {
-        RemoveFromItemHolder();
-        // Add to new Item Holder
-        newItemHolder.AddItem(this);
-    }
-
-
-
-    public Sprite GetSprite()
-    {
-        return itemScriptableObject.itemSprite;
-    }
-
-    public static Sprite GetSprite(ItemType itemType)
-    {
-        switch (itemType)
-        {
-            default:
-            case ItemType.Stick: return ItemAssets.Instance.s_Stick;
-            case ItemType.Rock: return ItemAssets.Instance.s_Rock;
-            case ItemType.Wood: return ItemAssets.Instance.s_Wood;
-        }
-    }
-
-
-    //スタックできるか
-    public bool IsStackable()
-    {
-        return true;
-    }
-
-    public static bool IsStackable(ItemType itemType)
-    {
-        switch (itemType)
-        {
-            default:
-            case ItemType.Wood:
-            case ItemType.Rock:
-            case ItemType.Dirt:
-            case ItemType.Leaf:
-                return true;
-            case ItemType.Stick:
-            case ItemType.Sword_Wood:
-            case ItemType.Sword_Rock:
-            case ItemType.Ax_Wood:
-            case ItemType.Ax_Rock:
-            case ItemType.PickeAx_Wood:
-            case ItemType.PickeAx_Rock:
-            case ItemType.Shovel_Rock:
-            case ItemType.Shovel_Wood:
-                return false;
-        }
-    }
-
-    public override string ToString()
-    {
-        return itemScriptableObject.itemName;
-    }
-
-
-    //public CharacterEquipment.EquipSlot GetEquipSlot() //つかう？
-    //{
-    //    return itemScriptableObject.equipSlot;
-    /*
-    switch (itemType) {
-    default:
-    case ItemType.SwordNone:
-    case ItemType.Sword_Wood:
-    case ItemType.Sword_Rock:
-        return CharacterEquipment.EquipSlot.Weapon;
-    }
-    */
-    //}
+    
 
     /*----------------------------------------------------↑中西作業↑----------------------------------------------------*/
 
