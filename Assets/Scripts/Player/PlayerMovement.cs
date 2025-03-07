@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
-    //移動速度、ジャンプ力、重力
-    public float speed = 7.0f;
-    public float jumpSpeed = 5.5f;
-    public float gravity = 15.0f;
+    public float speed = 12f;
+
+    public float jumpSpeed = 8.0f;
+    public float gravity = 20.0f;
 
     private Vector3 moveDirection = Vector3.zero;
     void Start()
@@ -22,24 +22,13 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        if (controller.isGrounded)
-        {
-            moveDirection.z = z * speed;
-            moveDirection.x = x * speed;
-            moveDirection = transform.TransformDirection(moveDirection);
+        Vector3 move = transform.right * x + transform.forward * z;
+        controller.Move(move * speed * Time.deltaTime);
 
-            if (Input.GetKey(KeyCode.Space))
-            {
-                moveDirection.y = jumpSpeed;
-            }
-        }
-        if (!controller.isGrounded)
+        if (Input.GetKey(KeyCode.Space))
         {
-            moveDirection.z = z * speed / 1.5f;
-            moveDirection.x = x * speed / 1.5f;
-            moveDirection = transform.TransformDirection(moveDirection);
+            moveDirection.y = jumpSpeed;
         }
-
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
 

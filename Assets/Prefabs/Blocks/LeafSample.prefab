@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9043365754511520238}
   m_Layer: 0
   m_Name: LeafSample
-  m_TagString: Block
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,11 +122,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 3
   number: 7
-  blockItem:
-    itemName: 
-    icon: {fileID: 0}
-    maxStack: 0
-    count: 0
-    itemPrefab: {fileID: 0}
-    itemScriptableObject: {fileID: 0}
-    amount: 1
