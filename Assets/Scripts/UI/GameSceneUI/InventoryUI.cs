@@ -5,44 +5,43 @@ using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] GameObject inventoryPanel;
-    [SerializeField] Transform inventorySlotParent; // スロットの親オブジェクト
-    [SerializeField] GameObject inventorySlotPrefab; // スロットのプレハブ
-    [SerializeField] Transform hotbarParent; // ホットバーの親オブジェクト
-    [SerializeField] GameObject hotbarSlotPrefab; // ホットバー用のスロットプレハブ
+    [SerializeField] Transform inventorySlotParent; // インベントリスロットの親オブジェクト
+    [SerializeField] GameObject inventorySlotPrefab;  // インベントリスロットのプレハブ
+    [SerializeField] Transform hotbarParent;          // ホットバーの親オブジェクト
+    [SerializeField] GameObject hotbarSlotPrefab;       // ホットバースロットのプレハブ
     private InventoryManager inventory;
     [SerializeField] GameObject backgroundPanel;
 
     [SerializeField] CameraController cameraController;
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] PlayerAction playerAction;
-    
+
     void Start()
     {
         inventory = FindObjectOfType<InventoryManager>();
         UpdateUI();
-        // 最初にインベントリを非表示
+        // 初期状態でインベントリを非表示にする
         inventoryPanel.SetActive(false);
         backgroundPanel.SetActive(false);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) // "E"キーでインベントリ開閉
+        if (Input.GetKeyDown(KeyCode.E)) // "E" キーで開閉
         {
             ToggleInventory();
         }
     }
+
     public void ToggleInventory()
     {
         bool isActive = !inventoryPanel.activeSelf;
         inventoryPanel.SetActive(isActive);
         backgroundPanel.SetActive(isActive);
 
-        // カーソルの表示/非表示
         Cursor.visible = isActive;
         Cursor.lockState = isActive ? CursorLockMode.None : CursorLockMode.Locked;
 
-        // カメラとプレイヤーの動きを無効化/有効化
         cameraController.enabled = !isActive;
         playerMovement.enabled = !isActive;
         playerAction.enabled = !isActive;
@@ -50,91 +49,43 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateUI()
     {
-        if (inventorySlotParent == null)
-        {
-            Debug.LogError("slotParent が設定されていません！");
-            return;
-        }
-
-        // スロットを取得（slotParent の直接の子にある Slot スクリプトがアタッチされたオブジェクトのみ）
-        Slot[] slots = inventorySlotParent.GetComponentsInChildren<Slot>();
-
-        if (slots.Length < 45)
-        {
-            Debug.LogError($"スロットの数が不足しています！現在のスロット数: {slots.Length}");
-            return;
-        }
-
-        // すべてのスロットのアイコンと数量をクリア
-        for (int i = 0; i < slots.Length; i++)
-        {
-            Image itemImage = slots[i].transform.Find("ItemImage")?.GetComponent<Image>();
-            TextMeshProUGUI text = slots[i].transform.Find("Number")?.GetComponent<TextMeshProUGUI>();
-
-            if (itemImage != null)
-            {
-                itemImage.sprite = null;
-                itemImage.gameObject.SetActive(false); // ここで非アクティブにする
-            }
-
-            if (text != null)
-            {
-                text.text = "";
-            }
-        }
-
-        // アイテムをスロットに反映
-        for (int i = 0; i < Mathf.Min(inventory.items.Count, slots.Length); i++)
-        {
-            Item item = inventory.items[i]; // 追加するアイテム
-            if (item == null) continue; // 念のため
-
-            Image itemImage = slots[i].transform.Find("ItemImage")?.GetComponent<Image>();
-            TextMeshProUGUI text = slots[i].transform.Find("Number")?.GetComponent<TextMeshProUGUI>();
-            if (text == null)
-            {
-                Debug.LogError("スロット " + i + " の Number が見つかりません！");
-                continue;
-            }
-            if (itemImage != null)
-            {
-                itemImage.sprite = item.icon;
-                itemImage.gameObject.SetActive(true); // アイテムがある場合は表示
-            }
-
-            if (text != null)
-            {
-                int itemCount = inventory.items[i].amount;
-                Debug.Log("スロット " + i + " のアイテム数: " + itemCount);
-
-                text.text = (itemCount > 1) ? itemCount.ToString() : ""; // 1個のときは非表示
-            }
-        }
-
-        // インベントリ更新（既存の処理）
+        // インベントリスロットの取得（固定スロット数が maxSlots と同じであることを前提）
         Slot[] inventorySlots = inventorySlotParent.GetComponentsInChildren<Slot>();
-        for (int i = 0; i < inventorySlots.Length; i++)
+        if (inventorySlots.Length < inventory.maxSlots)
         {
-            inventorySlots[i].ClearSlot();
+            Debug.LogError($"スロットの数が不足しています！現在のスロット数: {inventorySlots.Length}");
+            return;
         }
 
-        for (int i = 0; i < Mathf.Min(inventory.items.Count, inventorySlots.Length); i++)
+        // 各固定スロットごとにアイテムを反映（空の場合はクリア）
+        for (int i = 0; i < inventory.maxSlots; i++)
         {
-            inventorySlots[i].SetItem(inventory.items[i].icon, inventory.items[i].amount);
+            if (inventorySlots[i] == null) continue;
+
+            if (inventory.items[i] != null)
+            {
+                inventorySlots[i].SetItem(inventory.items[i].icon, inventory.items[i].amount);
+                inventorySlots[i].SetItem(inventory.items[i]);
+            }
+            else
+            {
+                inventorySlots[i].ClearSlot();
+            }
         }
 
-        // ホットバー更新
+        // ホットバーの更新（例として、先頭から hotbarSlots 数分の固定スロットに対応）
         Slot[] hotbarSlots = hotbarParent.GetComponentsInChildren<Slot>();
         for (int i = 0; i < hotbarSlots.Length; i++)
         {
-            hotbarSlots[i].ClearSlot();
-        }
-
-        for (int i = 0; i < Mathf.Min(inventory.hotbarSlots, inventory.items.Count); i++)
-        {
-            hotbarSlots[i].SetItem(inventory.items[i].icon, inventory.items[i].amount);
-            hotbarSlots[i].SetItem(inventory.items[i]); // アイテム情報を正しく設定
+            if (i < inventory.maxSlots && inventory.items[i] != null)
+            {
+                hotbarSlots[i].SetItem(inventory.items[i].icon, inventory.items[i].amount);
+                hotbarSlots[i].SetItem(inventory.items[i]);
+            }
+            else
+            {
+                hotbarSlots[i].ClearSlot();
+            }
         }
     }
-
 }
