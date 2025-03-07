@@ -35,6 +35,15 @@ public class Player : MonoBehaviour
         inventoryUi.SetActive(false);
         belongingUi.SetActive(false);
         gameOverUi.SetActive(true);
+
+        if (Input.GetKeyDown(KeyCode.R)) {
+            isDead = false;
+            GetComponent<PlayerMovement>().enabled = true;
+            belongingUi.SetActive(true);
+            gameOverUi.SetActive(false);
+
+            PlayerStats.instance.Heal(5);
+        }
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
