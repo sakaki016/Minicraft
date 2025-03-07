@@ -28,4 +28,6 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         canvasGroup.alpha = 1.0f;
         canvasGroup.blocksRaycasts = true;
     }
+
+
 }
